@@ -1,11 +1,11 @@
 import logo from './logo.svg';
+import { MainContainer } from './Components/Style/Style'
 import './App.css';
-import '../output/tailwind.css'
 
 function App() {
   return (
-    <div className="Ap">
-      <header className="App-heder bg-red-800">
+    <div>
+      <MainContainer>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -18,7 +18,7 @@ function App() {
         >
           Learn juned
         </a>
-      </header>
+      </MainContainer>
     </div>
   );
 }
