@@ -10,7 +10,7 @@ export const TabLI= tw.li`-mb-px mr-2 my-3 last:mr-0 flex-auto text-center`;
 export const TabLink= tw.a`text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal`;
 
 // Tab body css
-export const TabBody = tw.div` relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded`;
+export const TabBody = tw.div`relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded`;
 export const TabBodyContainer = tw.div`px-2 mx-4 py-5 flex-auto`;
 // export const TabBodyContent = tw.div`bg-green-600
 // `;

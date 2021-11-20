@@ -12,6 +12,8 @@ import loginsvg from '../../../Images/Mobile-login-bro.svg';
 // import { addToDbUser } from "../../User/UserDatabase";
 // import firebaseConfig from "../firebase.config";
 import './Signin.css';
+import {SigninContainer, SigninUserRole, SigninUserRoleSelect, SigninCreateAccount, SigninFooter, SigninSocialBtn, SigninForm} from './Signin_CSS.js';
+import {FormFieldset, FormLegendTitle, FormInput} from '../../Tab/Feature_Requests/FeatureRequests_CSS.js';
 
 
 
@@ -202,80 +204,6 @@ const Signin = () => {
             }
 
         }
-        //////////////Admin////////////////////////
-        else if (adminStatus) {
-
-            try {
-
-                const userSignUp = `https://mamar-dukan.herokuapp.com/user/login-admin`;
-                fetch(userSignUp, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(userInfo)
-                })
-                    .then(async res => await res.json())
-                    .then(async user => {
-
-                        if (user.success) {
-                            toast.success(user.message, {
-                                position: "bottom-right",
-                            });
-                            e.target.reset();
-                            sessionStorage.setItem('user', JSON.stringify(user));
-                            setUser(user);
-                            history.replace(from);
-                        }
-                        else {
-                            toast.error(user.message, {
-                                position: "bottom-right",
-                            });
-                        }
-                    })
-            }
-            catch (e) {
-                alert(e)
-            }
-
-        }
-
-        /////////SuperAdmin////////////
-        else if (superAdminStatus) {
-
-            try {
-
-                const userSignUp = `https://mamar-dukan.herokuapp.com/user/login-super-admin`;
-                fetch(userSignUp, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(userInfo)
-                })
-                    .then(async res => await res.json())
-                    .then(async user => {
-                        if (user.success) {
-                            toast.success(user.message, {
-                                position: "bottom-right",
-                            });
-                            e.target.reset();
-                            sessionStorage.setItem('user', JSON.stringify(user));
-                            setUser(user);
-                            history.replace(from);
-                        }
-                        else {
-                            toast.error(user.message, {
-                                position: "bottom-right",
-                            });
-                        }
-                    })
-            }
-            catch (e) {
-                alert(e)
-            }
-
-        }
         else {
             toast.error("Make sure you have select a role", {
                 position: "bottom-right",
@@ -317,100 +245,78 @@ const Signin = () => {
 
 
     return (
-        <>
-            <div className="bg-white font-open-sans">
-                <div className="container mx-auto px-8 py-8 lg:py-24 relative flex flex-col lg:flex-row items-center">
-                    <div className="lg:w-1/2 flex flex-col items-center lg:items-start">
-                        <div className="">
-                            <div className="login-box2">
-                                <h2>Login</h2>
-                                <form onSubmit={handleSubmit}>
-                                    <div class="user-box text-gray-900 focus:border-gray-900">
-                                        <input type="text" name="email" requiblue="" className="text-gray-900 focus:border-gray-900 " />
-                                        <label>Email</label>
-                                    </div>
-                                    <div class="user-box">
-                                        <input type="password" name="password" requiblue="" />
-                                        <label>Password</label>
-                                    </div>
-                                    <div className="padding-l-5 flex  justify-between text-sm">
-                                        <h1 className="text-gray-700 text-center">I'm</h1>
-
-                                        <div className="">
-                                            <input
-                                                className="w-6 h-4 cursor-pointer"
-                                                onChange={handleUserChange}
-                                                type="radio" id="user" name="fav_language" value="user" />
-                                            <label className="text-gray-700 text-center border-blue-400 rounded cursor-pointer" for="user">User</label>
-                                        </div>
-                                        <div className="flex items-center border-l-2 border-blue-400">
-                                            <input
-                                                className="w-6 h-4 cursor-pointer"
-                                                onChange={handleVendorChange}
-                                                type="radio" id="vendor" name="fav_language" value="vendor" />
-                                            <label className="text-gray-700 text-center" for="vendor">Vendor</label>
-                                        </div>
-                                        <div className="flex items-center border-l-2 border-blue-400">
-                                            <input
-                                                className="w-6 h-4 cursor-pointer"
-                                                onChange={handleAdminChange}
-                                                type="radio" id="admin" name="fav_language" value="admin" />
-                                            <label className="text-gray-700 text-center" for="admin">Admin</label>
-                                        </div>
-                                        <div className="flex items-center border-l-2 border-blue-400">
-                                            <input
-                                                className="w-6 h-4 cursor-pointer"
-                                                onChange={handleSuperAdminChange}
-                                                type="radio" id="superAdmin" name="fav_language" value="superAdmin" />
-                                            <label className="text-gray-700 text-center" for="superAdmin">Super Admin</label>
-                                        </div>
-                                    </div>
-                                    <label className="submitBtnAnimation">
-                                        <span className="btnAnimation"></span>
-                                        <span className="btnAnimation"></span>
-                                        <span className="btnAnimation"></span>
-                                        <span className="btnAnimation"></span>
-                                        <button type="submit" value="Submit">Submit</button>
-                                    </label>
-
-                                </form>
-
-
-                                <div className="social-login">
-                                    <div className="flex justify-between py-5">
-                                        <h4 className="text-white">Don't have an account?</h4>
-                                        <Link to="/register" style={{ color: "#000" }}>
-                                            Create an account
-                                        </Link>
-                                    </div>
-                                    <button onClick={handleGoogleLogin} className="login-btn">
-                                        <div className="flex justify-center items-center">
-                                            <h1>Google </h1>
-                                            <span>
-                                                <FcGoogle />
-                                            </span>
-                                        </div>
-                                    </button>
-                                    <button onClick={handleGitLogin} className="login-btn">
-                                        <div className="flex justify-center items-center">
-                                            <h1>Github </h1>
-                                            <span>
-                                                <AiFillGithub />
-                                            </span>
-                                        </div>
-                                    </button>
-                                </div>
-                            </div>
-
+        <div>
+            <SigninContainer>
+                <SigninForm>
+                    <form onSubmit={handleSubmit}>
+                        <FormFieldset>
+                            <FormLegendTitle>Login</FormLegendTitle>
+                            <label>Email</label>
+                            <FormInput type="text" name="email" requiblue="" />
+                            <label>Password</label>
+                            <FormInput type="password" name="password" requiblue="" />
+                        {/* <div class="user-box">
+                            <input type="text" name="email" requiblue="" />
+                            <label>Email</label>
                         </div>
-                    </div>
-                    <div className="w-full sm:w-2/3">
-                        <img src={loginsvg} alt="lioigiiin" />
-                    </div>
+                        <div class="user-box">
+                            <input type="password" name="password" requiblue="" />
+                            <label>Password</label>
+                        </div> */}
+                        <SigninUserRole>
+                            <h1>I'm a</h1>
+                            <SigninUserRoleSelect>
+                                <input
+                                    onChange={handleVendorChange}
+                                    type="radio" id="vendor" name="fav_language" value="vendor" />
+                                <label for="vendor">Vendor</label>
+                            </SigninUserRoleSelect>
+                            <SigninUserRoleSelect>
+                                <input
+                                    onChange={handleSuperAdminChange}
+                                    type="radio" id="superAdmin" name="fav_language" value="superAdmin" />
+                                <label for="superAdmin">Super Admin</label>
+                            </SigninUserRoleSelect>
+                        </SigninUserRole>
+                        <label className="submitBtnAnimation">
+                            <span className="btnAnimation"></span>
+                            <span className="btnAnimation"></span>
+                            <span className="btnAnimation"></span>
+                            <span className="btnAnimation"></span>
+                            <button type="submit" value="Submit">Submit</button>
+                        </label>
+
+                        </FormFieldset>
+                    </form>
+
+
+                    <SigninFooter>
+                        <SigninCreateAccount>
+                            <h4>Don't have an account?</h4>
+                            <Link to="/register" style={{ color: "#4f46e5" }}>
+                                Create an account
+                            </Link>
+                        </SigninCreateAccount>
+                        <SigninSocialBtn onClick={handleGoogleLogin} >
+                        <h1>Google </h1>
+                            <span>
+                                <FcGoogle />
+                            </span>
+                        </SigninSocialBtn>
+                        <SigninSocialBtn onClick={handleGitLogin}>
+                        <h1>Github </h1>
+                            <span>
+                                <AiFillGithub />
+                            </span>
+                        </SigninSocialBtn>
+                    </SigninFooter>
+                </SigninForm>
+                <div>
+                    <img src={loginsvg} alt="lioigiiin" />
                 </div>
-            </div>
+            </SigninContainer>
             <ToastContainer />
-        </>
+        </div>
     );
 };
 
