@@ -1,0 +1,52 @@
+/* .header { */
+    /* height: 700px; */
+    /* background: '../../../../img/depImg.jpg'; */
+    /* background-image: url('../../../../img/depImg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+} */
+/* .header-section{ */
+    /* background-color: #02233563; */
+     /* background-color: #02233563;
+    background-image: linear-gradient(315deg, #d9e4f500 15%, #022335 74%); */
+   
+    /* background-color: #d9e4f50e;
+    background-image: linear-gradient(315deg, #d9e4f500 30%, #f5e3e6ee 74%); */
+   
+    /* background-color: #02233563;
+    background-image: linear-gradient(315deg, #d9e4f500 30%, #f5e3e6ee 74%);
+     */
+     /* background-color: #02233563;
+     background-image: linear-gradient(315deg, #d9e4f500 0%, #001721 74%); */
+    
+    /* height: 700px; */
+/* } */
+.navbarLiItem, .navbarLiItemBtn {
+    padding: 5px;
+    font-weight: 600;
+    /* border-radius: 5px; */
+    
+   margin-right: 5px;
+}
+.navbarLiItem:hover, .navbarLiItemBtn {
+   background-color: red;
+   color: white;
+   border-radius: 5px;
+}
+.MobileMenu{
+    display: flex;
+    justify-self: start;
+    cursor: pointer;
+    font-size: x-large;
+}
+.toggleItem {
+    background-color: #111827;
+}
+.headingSpan{
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #fff;
+    padding-right: 15px;
+}

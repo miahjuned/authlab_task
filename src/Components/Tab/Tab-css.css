@@ -1,0 +1,15 @@
+.tab{
+    color: #f1f1f1;
+    background-color: red;
+}
+.tabActive{
+    color: red;
+    background-color: #f1f1f1;
+}
+
+.openTab{
+    display: block;
+}
+.closeTab{
+    display: none;
+}
