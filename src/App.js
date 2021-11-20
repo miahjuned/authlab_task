@@ -9,6 +9,7 @@ import BottomBar from './Components/Navbar/BottomBar/BottomBar.js';
 import './Components/Style/Global_Row.css';
 import Home from './Page/Home.js';
 import Login from './Page/Login.js';
+import Dashboard from './Page/Dashboard.js';
 export const userContext = createContext();
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/dashboard" component={Dashboard} />
           </Switch>
 
 
