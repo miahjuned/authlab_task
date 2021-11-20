@@ -4,7 +4,7 @@ export const MainContainer = tw.div`bg-red-600  md:px-10 mx-auto md:px-5 mx-1 py
 
 
 // *************** Navbar CSS ********************
-export const NavbarMain = tw.nav`mx-auto px-5 sticky top-0 z-50`;
+export const NavbarMain = tw.nav`mx-auto px-5 sticky top-0 z-50 shadow-lg`;
 export const NavbarContainer = tw.nav`capitalize  flex justify-between items-center h-16 `;
 
 export const NavbarUl = tw.ul`text-white text-center md:flex items-center hidden`;

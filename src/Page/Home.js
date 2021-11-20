@@ -4,10 +4,12 @@ import Tabs from '../Components/Tab/Tabs';
 
 const Home = () => {
     return (
-        <MainContainer>
-            <h2>Feedback</h2>
+        // <MainContainer>
+        <div>
+            {/* <h2>Feedback</h2> */}
             <Tabs/>
-        </MainContainer>
+        </div>
+        // {/* </MainContainer> */}
     );
 };
 
