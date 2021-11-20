@@ -17,4 +17,4 @@ export const FormImgUpload = tw.input`hidden`;
 export const FormImgUploadLabel = tw.label`rounded-lg bg-red-50  border px-5 space-x-2 cursor-pointer flex items-center`;
 
 // All Feature Section CSS
-export const FeatureAll = tw.div`col-span-2 bg-gray-600`;
+export const FeatureAll = tw.div`col-span-2`;

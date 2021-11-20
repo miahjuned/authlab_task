@@ -48,10 +48,9 @@ const FeatureRequests = () => {
                         </FormFieldset>
                     </FeatureForm>
                 </FeatureAdd>
-                <AllFeature/>
-                {/* <FeatureAll>
-
-                </FeatureAll> */}
+                <FeatureAll>
+                 <AllFeature/>
+                </FeatureAll>
             </FeatureContainer>
         </div>
     );
