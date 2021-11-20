@@ -8,6 +8,7 @@ import Navbar from './Components/Navbar/Navbar/Navbar/Navbar.js';
 import BottomBar from './Components/Navbar/BottomBar/BottomBar.js';
 import './Components/Style/Global_Row.css';
 import Home from './Page/Home.js';
+import Login from './Page/Login.js';
 export const userContext = createContext();
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
 
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
           </Switch>
 
 

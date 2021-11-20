@@ -42,7 +42,7 @@ const FeatureRequests = () => {
                                 </FormImgUploadLabel>
                             <FormImgUpload id="fileUpload" name="file-upload" type="file" />
 
-                            <button className='primary_BTN_Outline'>Request Feature</button>
+                            <button className='primary_BTN'>Request Feature</button>
                         </FormSubmit>
                         
                         </FormFieldset>

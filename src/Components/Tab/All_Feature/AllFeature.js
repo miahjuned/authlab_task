@@ -8,7 +8,47 @@ const AllFeature = () => {
             .then(res => res.json())
             .then(data => setFeature(data))
     }, [])
-    console.log(feature)
+
+    // ///////Approve Button......................................
+    // const handleApprove = () => {
+    //     setOpen(false)
+    //     setModalUpdateStatus(false)
+
+    //     const size = "P"
+
+    //     const orderStatus = {
+    //         orderId: updateId,
+    //         status: "Approved"
+    //     };
+
+    //     const url = `https://mamar-dukan.herokuapp.com/orders/${updateId}`;
+    //     fetch(url, {
+    //         method: 'PATCH',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(orderStatus)
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             if (data) {
+    //                 toast.success("Order status updated successfully", {
+    //                     position: "bottom-right",
+    //                 });
+    //                 deleted();
+    //             }
+    //         })
+    // }
+
+    const handleVote = (id, vote) => {
+        const updateStatus = {
+            vote: vote + 1,
+            id: id
+        };
+        console.log('id',id)
+        console.log('vote', vote)
+        console.log(updateStatus)
+    }
 
     return (
         <div>
@@ -23,7 +63,7 @@ const AllFeature = () => {
                     feature.map((feature, index) =>
                         <Fragment key={index}>
                             <AllFeatureCol>
-                                <FeatureAddButton>
+                                <FeatureAddButton onClick={() => handleVote(feature.id, feature.postId)}>
                                     <BiUpArrow size={30} />
                                     <p>{feature.postId}</p>
                                 </FeatureAddButton>
