@@ -56,34 +56,9 @@ export const SidebarData = [
     ]
   },
   {
-    title: 'Products',
-    path: '/super-admin/dashboard/products/overview',
+    title: 'All Feature Request',
+    path: '/dashboard/AllFeatureRequest',
     icon: <FaIcons.FaCartPlus />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-
-    subNav: [
-      {
-        title: 'All Products',
-        path: '/super-admin/dashboard/all-products/overview',
-        icon: <IoIcons.IoIosPaper />
-      },
-      {
-        title: 'Review',
-        path: '/super-admin/dashboard/review/overview',
-        icon: <IoIcons.IoIosPaper />
-      },
-      {
-        title: 'Orders',
-        path: '/super-admin/dashboard/orders/overview',
-        icon: <IoIcons.IoIosPaper />
-      },
-      {
-        title: 'Add Product',
-        path: '/super-admin/dashboard/addproduct/overview',
-        icon: <IoIcons.IoIosPaper />
-      }
-    ]
   },
   {
     title: 'Blogs',

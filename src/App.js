@@ -6,6 +6,8 @@ import { createContext, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from './Components/Navbar/Navbar/Navbar/Navbar.js';
 import BottomBar from './Components/Navbar/BottomBar/BottomBar.js';
+import AllFeatureRequest from './Components/Dashboard/All-feature-Request/AllFeatureRequest.js';
+
 import './Components/Style/Global_Row.css';
 import Home from './Page/Home.js';
 import Login from './Page/Login.js';
@@ -30,6 +32,7 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/dashboard/AllFeatureRequest" component={AllFeatureRequest} />
           </Switch>
 
 
