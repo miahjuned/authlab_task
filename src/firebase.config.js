@@ -12,14 +12,15 @@
 
 
 export const firebaseConfig = {
-    apiKey: "AIzaSyD4C9RSJhEa9r1DCgi9BrfrOuiYMDKnW6U",
-    authDomain: "doatours.firebaseapp.com",
-    projectId: "doatours",
-    storageBucket: "doatours.appspot.com",
-    messagingSenderId: "386387092206",
-    appId: "1:386387092206:web:654393fdd40c89e58549ff",
-    measurementId: "G-L25VS1L0XR"
-  };
+  apiKey: "AIzaSyCXaZvUa02-qq7nZ6xOSh2IpsucWcJ_HRw",
+  authDomain: "requestfeatures.firebaseapp.com",
+  projectId: "requestfeatures",
+  storageBucket: "requestfeatures.appspot.com",
+  messagingSenderId: "846988514044",
+  appId: "1:846988514044:web:1d35d7d8c1b4fde2b8bd79",
+  measurementId: "G-N104J7JLYQ"
+  
+};
 
 
 
@@ -30,3 +31,6 @@ export const firebaseConfig = {
   // // Initialize Firebase
   // const app = initializeApp(firebaseConfig);
   // const analytics = getAnalytics(app);
+
+
+  

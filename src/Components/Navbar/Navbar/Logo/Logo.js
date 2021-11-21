@@ -9,7 +9,7 @@ const Logo = ({closeMobileMenu}) => {
             onClick={closeMobileMenu} 
             className='MobileMenu'
         >
-            <NavbarLogo >Department of Accounting</NavbarLogo>
+            <NavbarLogo >Department of Autority</NavbarLogo>
             
         </Link>
     );
