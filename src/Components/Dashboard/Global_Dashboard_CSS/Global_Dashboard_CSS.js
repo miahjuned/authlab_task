@@ -2,7 +2,7 @@ import tw from 'twin.macro';
 
 // Dashboard CSS
 export const DashboardMain = tw.div`flex flex-wrap`;
-export const DashboardContainer = tw.div`md:w-5/6 w-full h-screen bg-red-600 overflow-y-scroll`;
+export const DashboardContainer = tw.div`md:w-5/6 w-full h-screen overflow-y-scroll bg-gray-200`;
 export const DashboardTitle = tw.h2` text-white py-2 border-l-4 pl-3 border-red-600`;
 
 

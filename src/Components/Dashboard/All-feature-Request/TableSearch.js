@@ -1,42 +1,52 @@
-import React from 'react';
-import {TableBodyData, TableBodyRow, TableHeadData } from './AllFeatureRequest_CSS.js';
+import React from "react";
+import {
+    ActionButton,
+  ActionContainer,
+  TableBodyData,
+  TableBodyRow,
+} from "./AllFeatureRequest_CSS.js";
 import { AiFillDelete, AiFillEdit, AiFillEye } from "react-icons/ai";
+import { AllReplyImg, ReplyImg } from "../../Tab/All_Feature/All_Feature_CSS.js";
+import img from '../../../Images/istockphoto-1277188775-170667a.jpg';
 
-const TableSearch = ({item, handleDelete, handleUpdate}) => {
-    return (
-        <TableBodyRow>
+const TableSearch = ({ item, handleDelete, handleUpdate }) => {
+  return (
+    <TableBodyRow>
+        <TableBodyData> 
+            <AllReplyImg>
+                <ReplyImg src={item.img || img} alt={item.title} /> 
+            </AllReplyImg>
+        </TableBodyData>
+      <TableBodyData> {item.title}</TableBodyData>
+      <TableBodyData>{item.description}</TableBodyData>
+      <TableBodyData>{item.vote}</TableBodyData>
+      <TableBodyData>{item.totalComment}</TableBodyData>
+      <TableBodyData>{item.status}</TableBodyData>
+      <TableBodyData>{item.user && item.user.name}</TableBodyData>
+      <TableBodyData>{new Date(item.date).toLocaleDateString()}</TableBodyData>
 
-            <TableBodyData>{item.order.orderId}</TableBodyData>
-            <TableBodyData>
-                <div className='flex px-5 items-center'>
+      <TableBodyData>
+        <ActionContainer>
+          <ActionButton
+            onClick={() => handleDelete(item._id)}
+          >
+            <AiFillEye />
+          </ActionButton>
 
-                    <p> {item?.product.product.name}</p>
-                </div>
-            </TableBodyData>
-
-            <TableBodyData>{item?.product.product.quantity}</TableBodyData>
-            <TableBodyData>${item.product.product?.price}</TableBodyData>
-            <TableBodyData>{item.product.product?.size}</TableBodyData>
-
-
-            <TableBodyData>{(new Date(item.order.orderDate).toLocaleDateString())}</TableBodyData>
-            <TableBodyData>${item.order.status}</TableBodyData>
-
-            <TableBodyData>
-                <div className='flex items-center text-2xl'>
-                    <button
-                        onClick={() => handleDelete(item._id)} className='text-blue-800 p-1 hover:bg-gray-900 rounded-full hover:text-gray-50'><AiFillEye /></button>
-
-                    <button
-                        onClick={() => handleUpdate(item._id)}
-                        className='text-yellow-400 p-1 hover:bg-gray-900 rounded-full '>
-                        <AiFillEdit />
-                    </button>
-
-                </div>
-            </TableBodyData>
-        </TableBodyRow>
-    );
+          <ActionButton
+            onClick={() => handleUpdate(item._id)}
+          >
+            <AiFillEdit />
+          </ActionButton>
+          <ActionButton
+            onClick={() => handleUpdate(item._id)}
+          >
+            <AiFillDelete />
+          </ActionButton>
+        </ActionContainer>
+      </TableBodyData>
+    </TableBodyRow>
+  );
 };
 
 export default TableSearch;

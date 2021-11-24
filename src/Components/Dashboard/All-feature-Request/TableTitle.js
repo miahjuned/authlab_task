@@ -1,11 +1,11 @@
 export const SidebarData = [
-    {title: 'ID'},
-    {title: 'Product'},
-    {title: 'Quantity'},
-    {title: 'Price'},
-    {title: 'Size'},
-    {title: 'Date'},
-    // {title: 'Color'},
+    {title: 'img'},
+    {title: 'Title'},
+    {title: 'Description'},
+    {title: 'Vote'},
+    {title: 'Total Comment'},
     {title: 'Status'},
+    {title: 'Vote Creator'},
+    {title: 'Date'},
     {title: 'Actions'}
 ]

@@ -81,6 +81,7 @@ html, body, input{
   padding: 10px 20px;
   text-transform: uppercase;
   font-weight: 700;
+  cursor: pointer;
 }
 .primary_BTN:hover {
   color: #dd2400;
@@ -95,6 +96,7 @@ html, body, input{
   padding: 10px 20px;
   text-transform: uppercase;
   font-weight: 700;
+  cursor: pointer;
 }
 .primary_BTN_Outline:hover {
   background-color: #dd2500;

@@ -13,7 +13,7 @@ import img from '../../../Images/istockphoto-1277188775-170667a.jpg';
 import { AllReplyImg, ReplyImg } from '../../Tab/All_Feature/All_Feature_CSS.js';
 
 
-const AllFeatureRequest = () => {
+const User = () => {
     const [searchValue, setSearchValue] = useState('');
     const [feacther, setFeacther] = useState([]);
     const [tableFilter, setTableFilter] = useState([]);
@@ -162,4 +162,4 @@ console.log(feacther)
     );
 };
 
-export default AllFeatureRequest;
+export default User;

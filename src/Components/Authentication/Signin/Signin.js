@@ -13,9 +13,11 @@ import loginsvg from '../../../Images/Mobile-login-bro.svg';
 // import firebaseConfig from "../firebase.config";
 import './Signin.css';
 import {SigninContainer, SigninUserRole, SigninUserRoleSelect, SigninCreateAccount, SigninFooter, SigninSocialBtn, SigninForm} from './Signin_CSS.js';
-import {FormFieldset, FormLegendTitle, FormInput} from '../../Tab/Feature_Requests/FeatureRequests_CSS.js';
+import {FormFieldset, FormLegendTitle, FormInput, FormLegend} from '../../Tab/Feature_Requests/FeatureRequests_CSS.js';
 
 
+import { useForm } from 'react-hook-form';
+// import { toast } from 'react-toastify';
 
 // if (!firebase.apps.length) {
 //     firebase.initializeApp(firebaseConfig);
@@ -29,12 +31,8 @@ const Signin = () => {
     const { user, setUser } = useContext(userContext);
     // const googleProvider = new firebase.auth.GoogleAuthProvider();
     // const gitProvider = new firebase.auth.GithubAuthProvider();
-    const [customerStatus, setCustomerStatus] = useState(false);
-    const [vendorStatus, setVendorStatus] = useState(false);
-    const [superAdminStatus, setSuperAdminStatus] = useState(false);
-    const [adminStatus, setAdminStatus] = useState(false);
-    const [token, setToken] = useState([]);
 
+    console.log(user)
     let history = useHistory();
     let location = useLocation();
     let { from } = location.state || { from: { pathname: "/" } };
@@ -119,172 +117,69 @@ const Signin = () => {
     };
 
 
-    //////////////Submitting..//////////////
-    async function handleSubmit(e) {
-        e.preventDefault();
-
-        const userInfo = {
-            email: e.target.email.value,
-            password: e.target.password.value
-        };
-
-        //////////////Customer/////////////
-        if (customerStatus) {
-
-            try {
-
-                const userSignUp = `https://mamar-dukan.herokuapp.com/user/login-user`;
-                fetch(userSignUp, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(userInfo)
-                })
-                    .then(async res => await res.json())
-                    .then(async user => {
-                        // user ? alert(user.message) : alert("failed")
-                        if (user.success) {
-                            toast.success(user.message, {
-                                position: "bottom-right",
-                            });
-                            e.target.reset();
-                            sessionStorage.setItem('user', JSON.stringify(user));
-                            setUser(user);
-                            // addToDbUser(user)
-
-                            setTimeout(history.replace(from), 8000)
-                        }
-                        else {
-                            toast.error(user.message, {
-                                position: "bottom-right",
-                            });
-                        }
-
-                    })
-            }
-            catch (e) {
-                alert(e)
-            }
-
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const onSubmit = (data) => {
+        const loginDetail = { 
+            email: data.email,
+            password: data.password
         }
-        ///////////Vendor///////////
-        else if (vendorStatus) {
-
-            try {
-
-                const userSignUp = `https://mamar-dukan.herokuapp.com/user/login-vendor`;
-                fetch(userSignUp, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(userInfo)
-                })
-                    .then(async res => await res.json())
-                    .then(async user => {
-                        if (user.success) {
-                            toast.success(user.message, {
-                                position: "bottom-right",
-                            });
-                            e.target.reset();
-                            sessionStorage.setItem('user', JSON.stringify(user));
-                            setUser(user);
-                            history.replace(from);
-                        }
-                        else {
-                            toast.error(user.message, {
-                                position: "bottom-right",
-                            });
-                        }
-                    })
+        fetch('https://sorting-functionality-authlab.herokuapp.com/user/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loginDetail)
+        })
+        .then(res => res.json())
+        .then(user => {
+            
+        console.log(user)
+            if(user.success === true){                
+                toast.success(user.message, {
+                    position: "bottom-right",
+                });
+                sessionStorage.setItem('user', JSON.stringify(user));
+                setUser(user)
+                history.replace(from);
+            } else {
+                toast.error(user.message, {
+                    position: "bottom-right",
+                });
             }
-            catch (e) {
-                alert(e)
-            }
-
-        }
-        else {
-            toast.error("Make sure you have select a role", {
+        })
+        .catch(err => {
+            toast.error(err, {
                 position: "bottom-right",
             });
-        }
-
-    };
-
-
-
-    const handleUserChange = () => {
-        setVendorStatus(false);
-        setCustomerStatus(true);
-        setSuperAdminStatus(false);
-        setAdminStatus(false);
+        }) 
     }
-
-    const handleVendorChange = () => {
-        setCustomerStatus(false);
-        setVendorStatus(true);
-        setSuperAdminStatus(false);
-        setAdminStatus(false);
-    }
-
-    const handleAdminChange = () => {
-        setCustomerStatus(false);
-        setVendorStatus(false);
-        setSuperAdminStatus(false);
-        setAdminStatus(true);
-    }
-
-    const handleSuperAdminChange = () => {
-        setCustomerStatus(false);
-        setVendorStatus(false);
-        setSuperAdminStatus(true);
-        setAdminStatus(false);
-    }
-
 
 
     return (
         <div>
             <SigninContainer>
                 <SigninForm>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <FormFieldset>
                             <FormLegendTitle>Login</FormLegendTitle>
-                            <label>Email</label>
-                            <FormInput type="text" name="email" requiblue="" />
-                            <label>Password</label>
-                            <FormInput type="password" name="password" requiblue="" />
-                        {/* <div class="user-box">
-                            <input type="text" name="email" requiblue="" />
-                            <label>Email</label>
-                        </div>
-                        <div class="user-box">
-                            <input type="password" name="password" requiblue="" />
-                            <label>Password</label>
-                        </div> */}
-                        <SigninUserRole>
-                            <h1>I'm a</h1>
-                            <SigninUserRoleSelect>
-                                <input
-                                    onChange={handleVendorChange}
-                                    type="radio" id="vendor" name="fav_language" value="vendor" />
-                                <label for="vendor">Vendor</label>
-                            </SigninUserRoleSelect>
-                            <SigninUserRoleSelect>
-                                <input
-                                    onChange={handleSuperAdminChange}
-                                    type="radio" id="superAdmin" name="fav_language" value="superAdmin" />
-                                <label for="superAdmin">Super Admin</label>
-                            </SigninUserRoleSelect>
-                        </SigninUserRole>
-                        <label className="submitBtnAnimation">
-                            <span className="btnAnimation"></span>
-                            <span className="btnAnimation"></span>
-                            <span className="btnAnimation"></span>
-                            <span className="btnAnimation"></span>
-                            <button type="submit" value="Submit">Submit</button>
-                        </label>
+
+                            <div>
+                                <FormLegend>Email</FormLegend>
+                                <FormInput name="email" type="text" placeholder="email" {...register("email", {required: true})}/>
+                                <span style={{color:"red"}}>{errors.email?.type === 'required' && "email is required"}</span>
+                                
+                                <FormLegend>Password</FormLegend>
+                                <FormInput name="password" type="text" placeholder="password" {...register("password", {required: true})}/>
+                                <span style={{color:"red"}}>{errors.password?.type === 'required' && "password is required"}</span>
+                            </div>
+                            
+                            <label className="submitBtnAnimation">
+                                <span className="btnAnimation"></span>
+                                <span className="btnAnimation"></span>
+                                <span className="btnAnimation"></span>
+                                <span className="btnAnimation"></span>
+                                <button type="submit" value="Submit">Submit</button>
+                            </label>
 
                         </FormFieldset>
                     </form>

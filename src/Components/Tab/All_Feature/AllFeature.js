@@ -1,99 +1,100 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { AllFeatureRow,Title, SubTitle, AllFeatureCols, AllFeatureCol, FeatureAddButton, FeatureCommentButton } from './All_Feature_CSS.js';
+import React, { Fragment, useState, useEffect, useContext } from 'react';
+import { AllFeatureRow,Title, SubTitle, AllFeatureCols, AllFeatureCol, FeatureAddButton, FeatureCommentButton, Status } from './All_Feature_CSS.js';
 import { BiUpArrow, BiComment } from "react-icons/bi";
+import { toast } from 'react-toastify';
+import { userContext } from '../../../App.js';
+import { useHistory } from 'react-router';
+import AllFeatureTopbar from './AllFeatureTopbar.js';
+
 const AllFeature = () => {
-    const [feature, setFeature] = useState([])
-    useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/comments')
+    const [feature, setFeature] = useState([]);
+    const [selectOption, setSelectOption] = useState('select');
+    const [statusOption, setStatusOption] = useState();
+    const { user } = useContext(userContext); 
+    let history = useHistory();
+
+    let url ='https://sorting-functionality-authlab.herokuapp.com/features/'
+    const features = () => {
+        
+        if (selectOption === 'select' ) {
+                fetch(url + 'all')
+                .then(res => res.json())
+                .then(data => setFeature(data.docs))
+        } else if(statusOption) {
+             fetch( url + `?status=${statusOption}` )
+                .then(res => res.json())
+                .then(data => setFeature(data.result))
+        } else {
+            fetch( url + `vote/${selectOption}` )
             .then(res => res.json())
-            .then(data => setFeature(data))
-    }, [])
+            .then(data => setFeature(data.data))
+        }
+        
+    }
 
-    // ///////Approve Button......................................
-    // const handleApprove = () => {
-    //     setOpen(false)
-    //     setModalUpdateStatus(false)
+    useEffect(() => {
+        features()
+    }, [feature])
 
-    //     const size = "P"
-
-    //     const orderStatus = {
-    //         orderId: updateId,
-    //         status: "Approved"
-    //     };
-
-    //     const url = `https://mamar-dukan.herokuapp.com/orders/${updateId}`;
-    //     fetch(url, {
-    //         method: 'PATCH',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify(orderStatus)
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             if (data) {
-    //                 toast.success("Order status updated successfully", {
-    //                     position: "bottom-right",
-    //                 });
-    //                 deleted();
-    //             }
-    //         })
-    // }
-
-    const handleVote = (id, vote) => {
-        const updateStatus = {
-            vote: vote + 1,
-            id: id
-        };
-        console.log('id',id)
-        console.log('vote', vote)
-        console.log(updateStatus)
+    const handleVoteUpdated = (id, vote) => {
+        if (user.email) {
+            fetch(url + id, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({vote: vote + 1})
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data) {
+                    toast.success("successfully done a vote", {
+                        position: "bottom-right",
+                    });
+                    features()
+                }
+            })
+        } else {
+            history.push('/login')
+        }
+    }
+    
+    const handlePostClick = (id) => {
+        history.push(`/single/feature/${id}`);
     }
 
     return (
         <div>
+            <AllFeatureTopbar  setSelect={setSelectOption} setStatusOption={setStatusOption}/>
             <AllFeatureRow>
-                {/* <AllFeatureCol>
-                    <FeatureAddButton>
-                        <BiUpArrow size={30}/>
-                        65
-                    </FeatureAddButton>
-                </AllFeatureCol> */}
+                
                 {
                     feature.map((feature, index) =>
                         <Fragment key={index}>
-                            <AllFeatureCol>
-                                <FeatureAddButton onClick={() => handleVote(feature.id, feature.postId)}>
+                            <AllFeatureCol title='add vote' 
+                                    onClick={() => handleVoteUpdated(feature._id , feature.vote)
+                                }>
+                                <FeatureAddButton >
                                     <BiUpArrow size={30} />
-                                    <p>{feature.postId}</p>
+                                    <p>{feature.vote}</p>
                                 </FeatureAddButton>
                             </AllFeatureCol>
 
-                            <AllFeatureCols>
-                                <Title>{feature.name}</Title>
-                                <SubTitle>{feature.body}</SubTitle>
+                            <AllFeatureCols title='view details' onClick={() => handlePostClick(feature._id)}>
+                                <Title>{feature.title}</Title>
+                                <Status>{feature.status}</Status>
+                                <SubTitle>{feature.description.slice(0, 100) + '...'}</SubTitle>
                             </AllFeatureCols>
 
-                            <AllFeatureCol>
-                                <FeatureCommentButton>
+                            <AllFeatureCol title='see comment' onClick={() => handlePostClick(feature._id)}>
+                                <FeatureCommentButton >
                                     <BiComment size={20} />
-                                    <strong>{feature.id}</strong>
+                                    <strong>{feature.totalComment}</strong>
                                 </FeatureCommentButton>
                             </AllFeatureCol>
                         </Fragment>
                     )
                 }
-                {/* <AllFeatureCols>
-                    All_Feature
-                </AllFeatureCols> */}
-
-
-                {/* <AllFeatureCol>
-                    <FeatureCommentButton>
-                        <BiComment size={20} />
-                        <strong>65</strong>
-                    </FeatureCommentButton>
-                </AllFeatureCol> */}
 
             </AllFeatureRow>
 

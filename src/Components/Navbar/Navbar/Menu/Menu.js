@@ -17,7 +17,12 @@ const NavbarSection = ({ toggle, closeMobileMenu, isOpen }) => {
         const foundUser = JSON.parse(loggedInUser);
           setUser(foundUser)
       }
-    }, []);
+    },[]);
+
+    const handleLogout = () => {
+      window.sessionStorage.removeItem("user");
+      setUser(' ')
+    };
 
   return (
     <Fragment>
@@ -50,32 +55,27 @@ const NavbarSection = ({ toggle, closeMobileMenu, isOpen }) => {
                 })
               }
               <NavbarLi>
-                <Link to='/login'  className='navbarLiItemBtn'>Login</Link>
+                {
+                  user.email ? <Link to='/login' className='navbarLiItemBtn' onClick={handleLogout}>Logout</Link>
+                 : <Link to='/login' className='navbarLiItemBtn' onClick={handleLogout}>Login</Link>
+
+              }
               </NavbarLi>
             
             <SocialMedia />
-          <NavbarLi>
+            <NavbarLi>
               {
                 user.role === "user" &&  <Link to='/user/dashboard'  className='navbarLiItem'>
-                      Dashboard
+                      User Dashboard
                   </Link>
               }
               {
-                user.role === "vendor" &&  <Link to='/vendor/dashboard/overview'  className='navbarLiItem'>
-                      Dashboard
+                user.role === "admin" &&  <Link to='/vendor/dashboard/overview'  className='navbarLiItem'>
+                      Admin Dashboard
                   </Link>
               }
-              {
-                user.role === "admin" &&  <Link to='/super-admin/dashboard/overview'  className='navbarLiItem'>
-                      Dashboard
-                  </Link>
-              }
-              {
-                user.role === "superadmin" &&  <Link to='/super-admin/dashboard/overview'  className='navbarLiItem'>
-                      Dashboard
-                  </Link>
-              }
-          </NavbarLi>
+              
+            </NavbarLi>
         </NavbarUl>
 
       </NavbarContainer>
