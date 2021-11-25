@@ -13,6 +13,7 @@ import SmoothScroll from "./Components/SmoothScroll/SmoothScroll.js";
 import SingleFeature from "./Components/Tab/All_Feature/SingleFeature.js";
 import UserOverview from "./Components/Dashboard/User/UserOverview.js";
 import AllFeatureOverview from "./Components/Dashboard/All-feature-Request/AllFeatureOverview.js";
+import PrivateRoute from "./Components/PrivateRoute/PrivateRoute.js";
 export const userContext = createContext();
 
 function App() {
@@ -30,10 +31,19 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/dashboard/AllFeatureRequest" component={AllFeatureOverview} />
-            <Route exact path="/dashboard/user" component={UserOverview} />
             <Route path="/single/feature/:id" component={SingleFeature} />
+            <PrivateRoute path="/dashboard">
+              <Dashboard/>
+            </PrivateRoute>
+
+            <PrivateRoute path="/dashboard/AllFeatureRequest">
+              <AllFeatureOverview/>
+            </PrivateRoute>
+
+            <PrivateRoute path="/dashboard/user">
+              <UserOverview/>
+            </PrivateRoute>
+
           </Switch>
         </Router>
     </userContext.Provider>

@@ -142,7 +142,7 @@ console.log(feacther)
                 </div>
             </Table>
             {showModal &&
-                <UpdatedModal updateId={updateId} showModal={showModal} setShowModal={setShowModal}/>
+                <UpdatedModal features={features} updateId={updateId} showModal={showModal} setShowModal={setShowModal}/>
             }
             {showDeleteModal &&
                 <DeleteModal features={features} deleteId={deleteId} showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal}/>

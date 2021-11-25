@@ -205,6 +205,22 @@ const Signin = () => {
                             </span>
                         </SigninSocialBtn>
                     </SigninFooter>
+                    <div style={{ margin: '20px', padding:'20px'}}>
+                        
+                    <strong>Login info</strong>
+                        <ol style={{display: 'flex', padding:'20px'}}>
+                            <li style={{paddingRight:'20px'}}>
+                                <strong>User:</strong>
+                                <p >User@gmail.com</p>
+                                <p>10203040</p>
+                            </li>
+                            <li >
+                                <strong>Admin:</strong>
+                                <p >admin@gmail.com</p>
+                                <p>10203040</p>
+                            </li>
+                        </ol>
+                    </div>
                 </SigninForm>
                 <div>
                     <img src={loginsvg} alt="lioigiiin" />

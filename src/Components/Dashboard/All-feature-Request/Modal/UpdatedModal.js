@@ -1,25 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { toast } from 'react-toastify';
-import { useHistory } from 'react-router';
-import { FeatureAddSubTitle, FeatureForm, FormFieldset, FormInput, FormLegend, FormLegendTitle, FormSubmit } from '../../../Tab/Feature_Requests/FeatureRequests_CSS';
-import { Modal, ModalBody, ModalContainer, ModalContent, ModalFooter, ModalFooterCloseBtn, ModalFooterSubmitBtn, ModalFormField, ModalHeader, ModalHeaderClose, ModalHeaderCloseIcon, ModalHeaderTitle, ModalOverlay } from '../../All-feature-Request/Modal/Modal_CSS';
 import { Select } from '../../../Tab/All_Feature/All_Feature_CSS';
+import { FeatureForm, FormFieldset, FormInput, FormLegend, FormLegendTitle } from '../../../Tab/Feature_Requests/FeatureRequests_CSS';
+import { Modal, ModalBody, ModalContainer, ModalContent, ModalFooter, ModalFooterCloseBtn, ModalFooterSubmitBtn, ModalFormField, ModalHeader, ModalHeaderClose, ModalHeaderCloseIcon, ModalHeaderTitle, ModalOverlay } from '../../All-feature-Request/Modal/Modal_CSS';
 
-const UpdatedModal = ({ showModal, setShowModal, updateId }) => {
-  
-  let history = useHistory();
+const UpdatedModal = ({ showModal, setShowModal, updateId, features}) => {
+  const [feature,setFeature] = useState([])
+  const [StatusOption ,setStatusOption] = useState()
+  console.log(feature)
+  let url ='https://sorting-functionality-authlab.herokuapp.com/features/'
+    const singleUser = () => {
+        fetch(url + updateId)
+        .then(res => res.json())
+        .then(data => setFeature(data.docs))
+    }
+
+    useEffect(() => {
+      singleUser()
+    }, [])
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = (data) => {
       const updatedInfo = { 
-          name: data.Name,
-          email: data.Email,
-          password: data.Password,
-          role: data.Role
+        title: data.Title,
+        description: data.Description,
+        reply: data.Reply,
+        status: StatusOption
       }
       console.log(updatedInfo)
-          fetch(`https://sorting-functionality-authlab.herokuapp.com/user/${updateId}`, {
+          fetch(url + updateId, {
               method: 'PATCH',
               headers: {
                   'Content-Type': 'application/json'
@@ -33,19 +43,14 @@ const UpdatedModal = ({ showModal, setShowModal, updateId }) => {
                   toast.success(data.message, {
                       position: "bottom-right",
                   });
+                  setShowModal(false);
+                  features()
               }
           })
-    };
+  };
   return (
       <>
-        <button
-          className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-          type="button"
-          onClick={() => setShowModal(true)}
-        >
-          Open regular modal
-        </button>
-        {showModal ? (
+        {showModal && (
           <>
             <Modal>
               <ModalContainer>
@@ -54,10 +59,8 @@ const UpdatedModal = ({ showModal, setShowModal, updateId }) => {
                   {/*header*/}
 
                   <ModalHeader>
-                    <ModalHeaderTitle> Modal Title </ModalHeaderTitle>
-                    <ModalHeaderClose
-                      onClick={() => setShowModal(false)}
-                    >
+                    <ModalHeaderTitle> Feature Details </ModalHeaderTitle>
+                    <ModalHeaderClose onClick={() => setShowModal(false)} >
                       <ModalHeaderCloseIcon title='modal close'>
                         <AiFillCloseCircle/>
                       </ModalHeaderCloseIcon>
@@ -69,32 +72,36 @@ const UpdatedModal = ({ showModal, setShowModal, updateId }) => {
                     <ModalBody>
                       <FeatureForm onSubmit={handleSubmit(onSubmit)}>
                         <FormFieldset>
-                            <FormLegendTitle>Updated info</FormLegendTitle>
+                            <FormLegendTitle>Feature updated</FormLegendTitle>
                             <ModalFormField>
 
                               <FormFieldset>
-                                  <FormLegend>Name</FormLegend>
-                                  <FormInput name="Name" type="text" placeholder="Name" {...register("Name")}/>
+                                  <FormLegend>Title</FormLegend>
+                                  <FormInput name="Title" title='Name' type="text" defaultValue={feature.title}  {...register("Title")}/>
                               </FormFieldset>
 
                               <FormFieldset>
-                                  <FormLegend>Email</FormLegend>
-                                  <FormInput name="Email" type="text" placeholder="Email" {...register("Email")}/>
+                                  <FormLegend>Description</FormLegend>
+                                  <FormInput name="Description" title='Email' type="text" defaultValue={feature.description} {...register("Description")}/>
                               </FormFieldset>
 
                               <FormFieldset>
-                                  <FormLegend>Password</FormLegend>
-                                  <FormInput name="Password" type="password" placeholder="Password" {...register("Password")}/>
+                                  <FormLegend>Reply</FormLegend>
+                                  <FormInput name="Reply" title='reply' type="text" defaultValue={feature.reply} {...register("Reply")}/>
                               </FormFieldset>
 
                               <FormFieldset>
-                                  <FormLegend>Role</FormLegend>
-                                  {/* <FormInput  type="text" placeholder="Role" {...register("Role")}/> */}
-                                  <Select name="Role" {...register("Role")}>
-                                      <optgroup label="Select Role">
-                                          <option>Select Role</option>
-                                          <option value="user">User</option>
-                                          <option value="admin">Admin</option>
+                                  <FormLegend>Status</FormLegend>
+                                  <Select onChange={(e) => setStatusOption(e.target.value)}>
+                                      <optgroup label="Current">
+                                        <option defaultValue={feature.status} >{feature.status} </option>
+                                      </optgroup>
+                                      <optgroup label="Select Status">
+                                          <option value="planned">Planned</option>
+                                          <option value="under-review">Under review</option>
+                                          <option value="in-progress">In-progress</option>
+                                          <option value="complete">complete</option>
+                                          <option value="my-own">my-own</option>
                                       </optgroup>
                                   </Select>
                               </FormFieldset>
@@ -116,11 +123,12 @@ const UpdatedModal = ({ showModal, setShowModal, updateId }) => {
                       </FeatureForm>
                     </ModalBody>
                 </ModalContent>
+
               </ModalContainer>
             </Modal>
             <ModalOverlay></ModalOverlay>
           </>
-        ) : null}
+        )}
       </>
     );
 };
