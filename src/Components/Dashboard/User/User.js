@@ -1,33 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { AiFillDelete, AiFillEdit, AiFillEye } from "react-icons/ai";
 import { ToastContainer } from 'react-toastify';
-import { ActionButton, ActionContainer, NotFound, Table, TableBodyData, TableBodyRow, TableHeadData } from './AllFeatureRequest_CSS.js';
+import { ActionButton, ActionContainer, NotFound, Table, TableBodyData, TableBodyRow, TableHeadData } from '../All-feature-Request/AllFeatureRequest_CSS';
 import { DashboardMain, DashboardContainer ,DashboardTitle} from '../Global_Dashboard_CSS/Global_Dashboard_CSS.js';
 // import OrderDeleteModal from './OrderDeleteModal';
 // import OrderStatusModal from './OrderStatusModal';
 import { SidebarData } from './TableTitle';
 import AdminSidebar from '../DashboardSidebar/DashboardSidebar.js';
-import TableSearch from './TableSearch.js';
 import TableSearchFrom from './TableSearchFrom.js';
-import img from '../../../Images/istockphoto-1277188775-170667a.jpg';
+import img from '../../../Images/download.jpg';
 import { AllReplyImg, ReplyImg } from '../../Tab/All_Feature/All_Feature_CSS.js';
+import UserTableSearch from './UserTableSearch';
+import UserUpdatedModal from './Modal/UserUpdatedModal';
+import UserDeleteModal from './Modal/UserDeleteModal';
 
 
-const User = () => {
+const AllFeatureRequest = () => {
     const [searchValue, setSearchValue] = useState('');
-    const [feacther, setFeacther] = useState([]);
+    const [user, setUser] = useState([]);
     const [tableFilter, setTableFilter] = useState([]);
     const [notFound, setNotFound] = useState(false);
-    const [modalDeleteStatus, setModalDeleteStatus] = useState(false);
-    const [modalUpdateStatus, setModalUpdateStatus] = useState(false);
     const [deleteId, setDeleteId] = useState(null);
-    const [updateId, setUpdateId] = useState(null);
-console.log(feacther)
+    const [updateId, setUpdateId] = useState(null);    
+    const [showUserModal, setShowUserModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+console.log(user)
 
     const filterData = (e) => {
         if (e.target.value !== "") {
             setSearchValue(e.target.value);
-            const filterTable = feacther.filter(o => Object.keys(o).some(k =>
+            const filterTable = user.filter(o => Object.keys(o).some(k =>
                 String(o[k]).toLowerCase().includes(e.target.value.toLowerCase()))
             );
 
@@ -40,15 +42,15 @@ console.log(feacther)
             setTableFilter([...filterTable])
         } else {
             setSearchValue(e.target.value);
-            setFeacther([...feacther]);
+            setUser([...user]);
         }
     }
 
-    let url ='https://sorting-functionality-authlab.herokuapp.com/features/'
+    let url ='https://sorting-functionality-authlab.herokuapp.com/user/all'
     const features = () => {
-        fetch(url + 'all')
+        fetch(url)
         .then(res => res.json())
-        .then(data => setFeacther(data.docs))
+        .then(data => setUser(data.result))
         
     }
 
@@ -59,107 +61,92 @@ console.log(feacther)
 
 
     //Update push.......................................................
-    const handleUpdate = (id) => {
-        setModalUpdateStatus(true);
+    const handleUpdateUser = (id) => {
         setUpdateId(id)
+        setShowUserModal(true);
+        setShowDeleteModal(false)
     }
 
 
     //Delete...............................................
     const handleDelete = (id) => {
-        setModalDeleteStatus(true);
-        setDeleteId(id)
+        setDeleteId(id);
+        setShowDeleteModal(true);
+        setShowUserModal(false);
+        console.log(id)
     }
 
 
 
     return (
-        <div>
-            <DashboardMain>
-                <AdminSidebar/>
-                <DashboardContainer>
-                        <Table>
-                            <div className="md:p-5 ">
-                                <TableSearchFrom filterData={filterData}/>
-                                <thead>
-                                    <tr className='sticky top-10'>
-                                        {
-                                            SidebarData.map((item, index) => {
-                                                return (
-                                                    <TableHeadData item={item} key={index} >
-                                                        {item.title}
-                                                    </TableHeadData>
-                                                )
-                                            })
-                                        }
-                                    </tr>
-                                </thead>
+        <>
 
-                                <tbody>
+            <Table>
+                <div className="md:p-5 ">
+                    <TableSearchFrom filterData={filterData}/>
+                    <thead>
+                        <tr className='sticky top-10'>
+                            {
+                                SidebarData.map((user, index) => {
+                                    return (
+                                        <TableHeadData user={user} key={index} >
+                                            {user.title}
+                                        </TableHeadData>
+                                    )
+                                })
+                            }
+                        </tr>
+                    </thead>
 
-                                    {searchValue.length > 0 ?
-                                        tableFilter.map((item, index) => <TableSearch item={item} key={index} handleDelete={handleDelete} handleUpdate={handleUpdate}></TableSearch>)
-                                        :
-                                        feacther.map((item, index) => {
-                                            return <TableBodyRow item={item} key={index} >
+                    <tbody>
 
-                                                <TableBodyData> 
-                                                    <AllReplyImg>
-                                                        <ReplyImg src={item.img || img} alt={item.title} /> 
-                                                    </AllReplyImg>
-                                                </TableBodyData>
-                                                <TableBodyData> {item.title}</TableBodyData>
-                                                <TableBodyData>{item.description}</TableBodyData>
-                                                <TableBodyData>{item.vote}</TableBodyData>
-                                                <TableBodyData>{item.totalComment}</TableBodyData>
-                                                <TableBodyData>{item.status}</TableBodyData>
-                                                <TableBodyData>{item.user && item.user.name}</TableBodyData>
-                                                <TableBodyData>{(new Date(item.date).toLocaleDateString())}</TableBodyData>
+                        {searchValue.length > 0 ?
+                            tableFilter.map((user, index) => <UserTableSearch user={user} key={index} handleDelete={handleDelete} handleUpdate={handleUpdateUser}></UserTableSearch>)
+                            :
+                            user.map((user, index) => {
+                                return <TableBodyRow user={user} key={index} >
 
-                                        
-                                                <TableBodyData>
-                                                    <ActionContainer>
-                                                        <ActionButton  onClick={() => handleDelete(item._id)}  >
-                                                            <AiFillEye />
-                                                        </ActionButton>
+                                    <TableBodyData> 
+                                        <AllReplyImg>
+                                            <ReplyImg src={user.img || img} alt={user.title} /> 
+                                        </AllReplyImg>
+                                    </TableBodyData>
+                                    <TableBodyData> {user.name}</TableBodyData>
+                                    <TableBodyData>{user.email}</TableBodyData>
+                                    <TableBodyData>{user.role}</TableBodyData>
+                                    <TableBodyData>{(new Date(user.createdAt).toLocaleDateString())}</TableBodyData>
 
-                                                        <ActionButton
-                                                            onClick={() => handleUpdate(item._id)} >
-                                                            <AiFillEdit />
-                                                        </ActionButton>
-                                                        <ActionButton
-                                                            onClick={() => handleUpdate(item._id)} >
-                                                            <AiFillDelete />
-                                                        </ActionButton>
-                                                    </ActionContainer>
-                                                </TableBodyData>
-                                            </TableBodyRow>
-                                        })
-                                    }
+                            
+                                    <TableBodyData>
+                                        <ActionContainer>
+                                            <ActionButton
+                                                onClick={() => handleUpdateUser(user._id)} >
+                                                <AiFillEdit />
+                                            </ActionButton>
+                                            <ActionButton
+                                                onClick={() => handleDelete(user._id)} >
+                                                <AiFillDelete />
+                                            </ActionButton>
+                                        </ActionContainer>
+                                    </TableBodyData>
+                                </TableBodyRow>
+                            })
+                        }
 
-                                </tbody>
-                                {notFound && <NotFound>Not found!</NotFound>}
+                    </tbody>
+                    {notFound && <NotFound>Not found!</NotFound>}
 
-                            </div>
-                        </Table>
-
-                        {/* {modalDeleteStatus && <OrderDeleteModal
-                            setModalDeleteStatus={setModalDeleteStatus}
-                            deleteId={deleteId}
-                            deleted={deleted}
-                        />}
-
-                        {modalUpdateStatus && <OrderStatusModal
-                            setModalUpdateStatus={setModalUpdateStatus}
-                            updateId={updateId}
-                            deleted={deleted}
-                        />} */}
-                        <ToastContainer />
-            
-                </DashboardContainer>
-            </DashboardMain>
-        </div>
+                </div>
+            </Table>
+            {showUserModal &&
+                <UserUpdatedModal features={features} updateId={updateId} showUserModal={showUserModal} setShowUserModal={setShowUserModal}/>
+            }
+            {showDeleteModal &&
+                <UserDeleteModal features={features} deleteId={deleteId} showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal}/>
+            }
+            <ToastContainer />
+        </>
     );
 };
 
-export default User;
+export default AllFeatureRequest;

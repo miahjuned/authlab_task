@@ -12,12 +12,12 @@ export default function SocialMedia() {
                 
                     return (
                         <SocialMediaLi key={index}>
-                            <Link to={item.path} className='text-xl '>
+                            <a href={item.path} className='text-xl ' target='_blank' rel='noreferrer'>
                                 { item.icon === 'facebook' && <FaFacebook className="icon " /> }
                                 {   item.icon === 'instagram' && <FaInstagram className="icon " /> }
                                 {  item.icon === 'twitter' && <FaTwitter className="icon " /> }
                                 { item.icon === 'linkedin' && <FaLinkedin className="icon " /> }
-                            </Link>
+                            </a>
                         </SocialMediaLi>
                     );
                     

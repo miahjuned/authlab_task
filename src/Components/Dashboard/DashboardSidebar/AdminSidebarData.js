@@ -5,12 +5,12 @@ import * as IoIcons from 'react-icons/io';
 export const SidebarData = [
   {
     title: 'Dashboard',
-    path: '/super-admin/dashboard/overview',
+    path: '/dashboard',
     icon: <AiIcons.AiFillHome />
   },
   {
     title: 'Users',
-    path: '/super-admin/dashboard/manage-user/overview',
+    path: '/dashboard/user',
     icon: <IoIcons.IoMdPeople />,
   },
   {

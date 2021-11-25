@@ -65,12 +65,7 @@ const NavbarSection = ({ toggle, closeMobileMenu, isOpen }) => {
             <SocialMedia />
             <NavbarLi>
               {
-                user.role === "user" &&  <Link to='/user/dashboard'  className='navbarLiItem'>
-                      User Dashboard
-                  </Link>
-              }
-              {
-                user.role === "admin" &&  <Link to='/vendor/dashboard/overview'  className='navbarLiItem'>
+                user.role === "admin" &&  <Link to='/dashboard'  className='navbarLiItem'>
                       Admin Dashboard
                   </Link>
               }

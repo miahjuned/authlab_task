@@ -10,7 +10,7 @@ const AdminSidebar = () => {
     return (
       <SidebarContainer>
         <SidebarDiv>
-          {/* <SidebarBtn>Hello! {user.username}</SidebarBtn> */}
+          <SidebarBtn>Hello! {user.name}</SidebarBtn>
           {SidebarData.map((item, index) => {
               return <SubMenu item={item} key={index} />;
             })}

@@ -9,7 +9,7 @@ export const Menu = [
   },
   {
     title: "Blog",
-    path: "/blog",
+    path: "/",
     class:
       "py-2  px-3 font-medium hover:bg-red-700 duration-500 hover:text-white rounded-lg",
     toggleClass:
@@ -17,7 +17,7 @@ export const Menu = [
   },
   {
     title: "FAQs",
-    path: "/faqs",
+    path: "/s",
     class:
       "py-2  px-3 font-medium hover:bg-red-700 duration-500 hover:text-white rounded-lg",
     toggleClass:
@@ -26,8 +26,8 @@ export const Menu = [
 ];
 
 export const Icon = [
-  { path: "/facebook", icon: "facebook" },
-  { path: "/instagram", icon: "instagram" },
-  { path: "/twitter", icon: "twitter" },
-  { path: "/linkedin", icon: "linkedin" },
+  { path: "//facebook/zunead1", icon: "facebook" },
+  { path: "//facebook/zunead1", icon: "instagram" },
+  { path: "//facebook/zunead1", icon: "twitter" },
+  { path: "//facebook/zunead1", icon: "linkedin" },
 ];
