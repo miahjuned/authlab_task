@@ -33,8 +33,8 @@ export const RecentPost = tw.h2`border-l-4 border-red-600 pl-4 mb-4 text-xl font
 export const RecentPostContainer = tw.div`shadow mt-4 cursor-pointer px-3 mx-5 py-1 text-gray-700  hover:bg-red-500 rounded-lg`;
 export const RecentPostTitle = tw.p`text-lg font-medium  hover:text-white`;
 
-export const AllReply = tw.div`flex items-center space-x-3 shadow p-3 rounded-lg`;
-export const AllReplyImg = tw.div`h-10 w-10 rounded-full`;
+export const AllReply = tw.div`flex items-start space-x-3 shadow p-3 rounded-lg`;
+export const AllReplyImg = tw.div`h-20 w-8/12 rounded-full`;
 export const ReplyImg = tw.img`w-full h-full object-cover rounded-full`;
 
 
