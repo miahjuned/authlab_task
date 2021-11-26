@@ -6,16 +6,16 @@ import {
   TableBodyRow,
 } from "../All-feature-Request/AllFeatureRequest_CSS.js";
 import { AiFillDelete, AiFillEdit, AiFillEye } from "react-icons/ai";
-import { AllReplyImg, ReplyImg } from "../../Tab/All_Feature/All_Feature_CSS.js";
-import img from '../../../Images/istockphoto-1277188775-170667a.jpg';
+import img from '../../../Images/download.jpg';
+import { DashboardImg, DashboardImgContainer } from "../Global_Dashboard_CSS/Global_Dashboard_CSS.js";
 
 const UserTableSearch = ({ user, handleDelete, handleUpdate }) => {
   return (
     <TableBodyRow>
-      <TableBodyData> 
-          <AllReplyImg>
-              <ReplyImg src={user.img || img} alt={user.title} /> 
-          </AllReplyImg>
+      <TableBodyData>
+        <DashboardImgContainer> 
+            <DashboardImg src={user.img || img} alt={user.title} /> 
+        </DashboardImgContainer>
       </TableBodyData>
       <TableBodyData> {user.name}</TableBodyData>
       <TableBodyData>{user.email}</TableBodyData>

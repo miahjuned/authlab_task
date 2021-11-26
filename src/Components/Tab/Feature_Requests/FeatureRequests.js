@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { FeatureAddTitle , FeatureForm , FormLegend , FormSubmit , FormImgUpload , FormImgUploadLabel , FormImg , FormInput , FormFieldset, FeatureAddSubTitle , FeatureAll , FeatureAdd , FeatureContainer , FormLegendTitle, FormInputTextarea } from './FeatureRequests_CSS';
+import {  FeatureForm , FormLegend , FormSubmit , FormImgUpload , FormImgUploadLabel , FormInput , FormFieldset, FeatureAddSubTitle , FeatureAll , FeatureAdd , FeatureContainer , FormLegendTitle, FormInputTextarea } from './FeatureRequests_CSS';
 import AllFeature from "../All_Feature/AllFeature.js";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 
@@ -12,16 +12,17 @@ import axios from 'axios';
 const FeatureRequests = () => {
     const { user  } = useContext(userContext);
     const [imageURLS , setImageURL] = useState(null);
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } , reset} = useForm();
     
     let history = useHistory();
-    const onSubmit = (data) => {
+    const onSubmit = (e) => {
         const featuresDetail = { 
-            title: data.Title,
-            description: data.Description,
+            title: e.Title,
+            description: e.Description,
             userId: user.id,
             img: imageURLS
         }
+        
         if (user.email) {
             fetch('https://sorting-functionality-authlab.herokuapp.com/features', {
                 method: 'POST',
@@ -36,6 +37,7 @@ const FeatureRequests = () => {
                     toast.success(data.message, {
                         position: "bottom-right",
                     });
+                    reset();
                 }
             })
         } else {

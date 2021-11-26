@@ -14,6 +14,8 @@ import SingleFeature from "./Components/Tab/All_Feature/SingleFeature.js";
 import UserOverview from "./Components/Dashboard/User/UserOverview.js";
 import AllFeatureOverview from "./Components/Dashboard/All-feature-Request/AllFeatureOverview.js";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute.js";
+import AddAdmin from "./Components/Dashboard/AddAdmin/AddAdmin.js";
+import SIgnUp from "./Components/Authentication/SignUp/SIgnUp.js";
 export const userContext = createContext();
 
 function App() {
@@ -30,18 +32,23 @@ function App() {
 
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />
+            <Route  path="/login" component={Login} />
+            <Route path="/register" component={SIgnUp} />
             <Route path="/single/feature/:id" component={SingleFeature} />
             <PrivateRoute path="/dashboard">
               <Dashboard/>
             </PrivateRoute>
 
-            <PrivateRoute path="/dashboard/AllFeatureRequest">
+            <PrivateRoute exact path="/AllFeatureRequest/dashboard">
               <AllFeatureOverview/>
             </PrivateRoute>
 
-            <PrivateRoute path="/dashboard/user">
+            <PrivateRoute exact path="/user/dashboard">
               <UserOverview/>
+            </PrivateRoute>
+
+            <PrivateRoute exact path="/add-admin/dashboard">
+              <AddAdmin/>
             </PrivateRoute>
 
           </Switch>

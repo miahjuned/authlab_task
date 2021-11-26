@@ -1,30 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { AiFillDelete, AiFillEdit, AiFillEye } from "react-icons/ai";
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { ToastContainer } from 'react-toastify';
 import { ActionButton, ActionContainer, NotFound, Table, TableBodyData, TableBodyRow, TableHeadData } from '../All-feature-Request/AllFeatureRequest_CSS';
-import { DashboardMain, DashboardContainer ,DashboardTitle} from '../Global_Dashboard_CSS/Global_Dashboard_CSS.js';
-// import OrderDeleteModal from './OrderDeleteModal';
-// import OrderStatusModal from './OrderStatusModal';
 import { SidebarData } from './TableTitle';
-import AdminSidebar from '../DashboardSidebar/DashboardSidebar.js';
 import TableSearchFrom from './TableSearchFrom.js';
 import img from '../../../Images/download.jpg';
-import { AllReplyImg, ReplyImg } from '../../Tab/All_Feature/All_Feature_CSS.js';
 import UserTableSearch from './UserTableSearch';
 import UserUpdatedModal from './Modal/UserUpdatedModal';
 import UserDeleteModal from './Modal/UserDeleteModal';
+import { DashboardImg, DashboardImgContainer } from '../Global_Dashboard_CSS/Global_Dashboard_CSS';
 
 
 const AllFeatureRequest = () => {
-    const [searchValue, setSearchValue] = useState('');
     const [user, setUser] = useState([]);
-    const [tableFilter, setTableFilter] = useState([]);
     const [notFound, setNotFound] = useState(false);
     const [deleteId, setDeleteId] = useState(null);
-    const [updateId, setUpdateId] = useState(null);    
+    const [updateId, setUpdateId] = useState(null); 
+    const [searchValue, setSearchValue] = useState('');
+    const [tableFilter, setTableFilter] = useState([]);
     const [showUserModal, setShowUserModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-console.log(user)
 
     const filterData = (e) => {
         if (e.target.value !== "") {
@@ -60,7 +55,7 @@ console.log(user)
 
 
 
-    //Update push.......................................................
+    //Update .......................................................
     const handleUpdateUser = (id) => {
         setUpdateId(id)
         setShowUserModal(true);
@@ -103,13 +98,12 @@ console.log(user)
                         {searchValue.length > 0 ?
                             tableFilter.map((user, index) => <UserTableSearch user={user} key={index} handleDelete={handleDelete} handleUpdate={handleUpdateUser}></UserTableSearch>)
                             :
-                            user.map((user, index) => {
-                                return <TableBodyRow user={user} key={index} >
-
+                            user.map((user, index) => 
+                                <TableBodyRow user={user} key={index} >
                                     <TableBodyData> 
-                                        <AllReplyImg>
-                                            <ReplyImg src={user.img || img} alt={user.title} /> 
-                                        </AllReplyImg>
+                                        <DashboardImgContainer>
+                                            <DashboardImg src={user.img || img} alt={user.title} /> 
+                                        </DashboardImgContainer>
                                     </TableBodyData>
                                     <TableBodyData> {user.name}</TableBodyData>
                                     <TableBodyData>{user.email}</TableBodyData>
@@ -129,8 +123,9 @@ console.log(user)
                                             </ActionButton>
                                         </ActionContainer>
                                     </TableBodyData>
+
                                 </TableBodyRow>
-                            })
+                            )
                         }
 
                     </tbody>

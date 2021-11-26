@@ -2,16 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { AiFillDelete, AiFillEdit, AiFillEye } from "react-icons/ai";
 import { ToastContainer } from 'react-toastify';
 import { ActionButton, ActionContainer, NotFound, Table, TableBodyData, TableBodyRow, TableHeadData } from './AllFeatureRequest_CSS.js';
-// import OrderDeleteModal from './OrderDeleteModal';
-// import OrderStatusModal from './OrderStatusModal';
 import { SidebarData } from './TableTitle';
 import TableSearch from './TableSearch.js';
 import TableSearchFrom from './TableSearchFrom.js';
 import img from '../../../Images/istockphoto-1277188775-170667a.jpg';
-import { AllReplyImg, ReplyImg } from '../../Tab/All_Feature/All_Feature_CSS.js';
 import UpdatedModal from './Modal/UpdatedModal.js';
-import UserDeleteModal from '../User/Modal/UserDeleteModal.js';
 import DeleteModal from './Modal/DeleteModal.js';
+import { DashboardImg, DashboardImgContainer } from '../Global_Dashboard_CSS/Global_Dashboard_CSS.js';
 
 
 const AllFeatureRequest = () => {
@@ -19,14 +16,10 @@ const AllFeatureRequest = () => {
     const [feacther, setFeacther] = useState([]);
     const [tableFilter, setTableFilter] = useState([]);
     const [notFound, setNotFound] = useState(false);
-    const [modalDeleteStatus, setModalDeleteStatus] = useState(false);
-    const [modalUpdateStatus, setModalUpdateStatus] = useState(false);
     const [deleteId, setDeleteId] = useState(null);
     const [updateId, setUpdateId] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-console.log(feacther)
 
     const filterData = (e) => {
         if (e.target.value !== "") {
@@ -62,7 +55,7 @@ console.log(feacther)
 
 
 
-    //Update push.......................................................
+    //Update.......................................................
     const handleUpdate = (id) => {
         setUpdateId(id);
         setShowModal(true);
@@ -107,12 +100,12 @@ console.log(feacther)
                                 return <TableBodyRow item={item} key={index} >
 
                                     <TableBodyData> 
-                                        <AllReplyImg>
-                                            <ReplyImg src={item.img || img} alt={item.title} /> 
-                                        </AllReplyImg>
+                                        <DashboardImgContainer>
+                                            <DashboardImg src={item.img || img} alt={item.title} /> 
+                                        </DashboardImgContainer>
                                     </TableBodyData>
                                     <TableBodyData> {item.title}</TableBodyData>
-                                    <TableBodyData>{item.description}</TableBodyData>
+                                    <TableBodyData>{item.description.slice(0, 50) + '...'}</TableBodyData>
                                     <TableBodyData>{item.vote}</TableBodyData>
                                     <TableBodyData>{item.totalComment}</TableBodyData>
                                     <TableBodyData>{item.status}</TableBodyData>

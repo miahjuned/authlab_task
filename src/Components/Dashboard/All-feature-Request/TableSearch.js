@@ -6,19 +6,20 @@ import {
   TableBodyRow,
 } from "./AllFeatureRequest_CSS.js";
 import { AiFillDelete, AiFillEdit, AiFillEye } from "react-icons/ai";
-import { AllReplyImg, ReplyImg } from "../../Tab/All_Feature/All_Feature_CSS.js";
+import { ReplyImg } from "../../Tab/All_Feature/All_Feature_CSS.js";
 import img from '../../../Images/istockphoto-1277188775-170667a.jpg';
+import { DashboardImg, DashboardImgContainer } from "../Global_Dashboard_CSS/Global_Dashboard_CSS.js";
 
 const TableSearch = ({ item, handleDelete, handleUpdate }) => {
   return (
     <TableBodyRow>
-        <TableBodyData> 
-            <AllReplyImg>
-                <ReplyImg src={item.img || img} alt={item.title} /> 
-            </AllReplyImg>
-        </TableBodyData>
+      <TableBodyData> 
+          <DashboardImgContainer> 
+              <DashboardImg src={item.img || img} alt={item.title} /> 
+          </DashboardImgContainer>
+      </TableBodyData>
       <TableBodyData> {item.title}</TableBodyData>
-      <TableBodyData>{item.description}</TableBodyData>
+      <TableBodyData>{item.description.slice(0, 50) + '.....'}</TableBodyData>
       <TableBodyData>{item.vote}</TableBodyData>
       <TableBodyData>{item.totalComment}</TableBodyData>
       <TableBodyData>{item.status}</TableBodyData>

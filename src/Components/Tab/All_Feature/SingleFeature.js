@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
-import { AllReply, AllReplyImg, PostCol, PostContainer, PostDate, PostDescription, PostImg, PostImgContainer, PostTitle, RecentCol, RecentPost, RecentPostContainer, RecentPostTitle, ReplyImg, SingleFeatureRow } from "./All_Feature_CSS";
+import { AllReply,  DescriptionContent, PostCol, ReplyContainer, PostDate, PostDescription, PostImg, PostImgContainer, PostTitle, RecentCol, RecentPost, RecentPostContainer, RecentPostTitle, ReplyImg, SingleFeatureRow, RecentContainer } from "./All_Feature_CSS";
 import img from '../../../Images/download.jpg'
 import imgs from '../../../Images/istockphoto-1179420343-612x612.jpg'
-import { FeatureForm , FormLegend , FormSubmit , FormImgUpload , FormImgUploadLabel , FormImg , FormInput , FormFieldset, FeatureAddSubTitle , FeatureAll , FeatureAdd , FeatureContainer , FormLegendTitle, FormInputTextarea } from '../Feature_Requests/FeatureRequests_CSS';
+import { FeatureForm , FormFieldset, FormLegendTitle, FormInputTextarea } from '../Feature_Requests/FeatureRequests_CSS';
 
 import { userContext } from "../../../App";
 import { toast, ToastContainer } from "react-toastify";
@@ -17,7 +17,7 @@ const SingleFeature = () => {
   const [reply, setReply] = useState(false);
   const { user } = useContext(userContext); 
 console.log(post.user)
-const { register, handleSubmit, formState: { errors } } = useForm();
+const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
     const features = () => {
         fetch(`https://sorting-functionality-authlab.herokuapp.com/features/${id}`)
@@ -61,7 +61,9 @@ const { register, handleSubmit, formState: { errors } } = useForm();
                     toast.success('successfully reply', {
                         position: "bottom-right",
                     });
-                    features()
+                    features();
+                    reset();
+                    setReply(false)
                 }
             })
         } else {
@@ -78,21 +80,15 @@ const { register, handleSubmit, formState: { errors } } = useForm();
              {/****************  post description ***********/}
                 <PostImgContainer> <PostImg src={post.img || img} alt={post.name} />  </PostImgContainer> 
                 <PostTitle>  {post.title}  </PostTitle> 
-                <PostDate>  {(new Date(post.date).toLocaleDateString())} </PostDate> 
-                <PostContainer>
-                        <AllReply>
-                            <AllReplyImg>
-                                <ReplyImg src={post.replyUserImg || img} alt={post.name} /> 
-                            </AllReplyImg>
-                            <div>
-                                <strong>{post.user && post.user.name}</strong> <br/>
-                                <p>{post.description}</p>
-                            </div>
-                        </AllReply>
-                    <PostDescription>    </PostDescription>
-
-
-
+                <PostDescription> 
+                    <DescriptionContent>
+                        <img src={post.replyUserImg || img} alt={post.name}  width='50px' style={{borderRadius:'30px'}}/> 
+                        <PostDate> 
+                            <strong>{post.user && post.user.name}</strong> <br/>
+                             {(new Date(post.date).toLocaleDateString())} 
+                        </PostDate> 
+                    </DescriptionContent>
+                    <p>{post.description}</p>
 
                     {/**************** Reply ***********/}
                     {
@@ -113,40 +109,42 @@ const { register, handleSubmit, formState: { errors } } = useForm();
                     }
 
 
-
+                </PostDescription>
+                <ReplyContainer>
 
                     {/****************  All Reply ***********/}
                     { post.reply && 
                         <FormFieldset>
                             <FormLegendTitle>All Reply</FormLegendTitle>
                             <AllReply>
-                                <AllReplyImg>
                                 <ReplyImg src={post.replyUserImg || imgs} alt={post.name} /> 
-                                </AllReplyImg>
                                 <div>
-                                    <strong>{post.replyUser}</strong>
+                                    <strong>{post.replyUser}</strong> <br/>
+                                    <small>{(new Date(post.date).toLocaleDateString())}</small>
                                     <p>{post.reply}</p>
                                 </div>
                             </AllReply>
                         </FormFieldset>
                     }
-                </PostContainer>
+                </ReplyContainer>
             </PostCol>
 
 
 
              {/****************  Recent Post ***********/}
             <RecentCol>
-                <RecentPost> Recent Post </RecentPost>
-                
-                    {recentPosts.slice(0, 6).map((Post) => (
-                        <RecentPostContainer key={Post._id}>
-                            <RecentPostTitle onClick={() => handlePostClick(Post._id)}>
-                                {Post.title}
-                                <PostDate>{(new Date(Post.date).toLocaleDateString())}</PostDate>
-                            </RecentPostTitle>
-                        </RecentPostContainer>
-                    ))}
+                <RecentContainer>
+                    <RecentPost> Recent Post </RecentPost>
+                    
+                        {recentPosts.slice(0, 6).map((Post) => (
+                            <RecentPostContainer key={Post._id}>
+                                <RecentPostTitle onClick={() => handlePostClick(Post._id)}>
+                                    {Post.title}
+                                    <PostDate>{(new Date(Post.date).toLocaleDateString())}</PostDate>
+                                </RecentPostTitle>
+                            </RecentPostContainer>
+                        ))}
+                </RecentContainer>
             </RecentCol>
             <ToastContainer/>
 

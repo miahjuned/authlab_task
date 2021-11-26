@@ -178,7 +178,7 @@ const Signin = () => {
                                 <span className="btnAnimation"></span>
                                 <span className="btnAnimation"></span>
                                 <span className="btnAnimation"></span>
-                                <button type="submit" value="Submit">Submit</button>
+                                <button type="submit" value="Submit">Login</button>
                             </label>
 
                         </FormFieldset>

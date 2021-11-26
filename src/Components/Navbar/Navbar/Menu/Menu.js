@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Menu } from "./MenuItems";
 import Logo from "../Logo/Logo";
 import SocialMedia from "../SocialMedia/SocialMedia";
-import { FaBars, FaCaretDown, FaShoppingBag, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes } from "react-icons/fa";
 import { userContext } from "../../../../App";
 import { NavbarContainer, NavbarLi, NavbarToggle, NavbarUl } from "../../../Style/Style.js";
 import './Menu.css';

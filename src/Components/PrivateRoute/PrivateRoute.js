@@ -5,7 +5,7 @@ import { userContext } from '../../App';
 
 const PrivateRoute = ({ children, ...rest }) => {
 
-    const { user, setUser } = useContext(userContext);
+    const { user } = useContext(userContext);
 
     return (
         <Route
@@ -16,7 +16,7 @@ const PrivateRoute = ({ children, ...rest }) => {
                 ) : (
                     <Redirect
                         to={{
-                            pathname: "/login",
+                            pathname: "/",
                             state: { from: location }
                         }}
                     />

@@ -17,25 +17,26 @@ export const Select = tw.select`my-2 rounded-lg bg-gray-700 text-white px-2 focu
 
 
 
-export const SingleFeatureRow = tw.div`grid grid-cols-1 md:grid-cols-12 gap-2 bg-gray-50 p-5  rounded-lg  h-full`;
+export const SingleFeatureRow = tw.div`grid grid-cols-1 md:grid-cols-12 gap-2 bg-gray-50 p-5  rounded-lg  h-full tracking-tight`;
 export const PostCol = tw.div`col-span-9`;
-export const PostImgContainer = tw.div`h-72 w-full rounded-2xl bg-red-600 `;
+export const PostImgContainer = tw.div`h-72 w-full rounded-2xl `;
 export const PostImg = tw.img`w-full h-full object-cover `;
 
 
-export const PostContainer = tw.div`shadow-lg rounded-lg p-5 m-3 space-y-5 w-8/12`;
 export const PostTitle = tw.h1`text-2xl font-bold`;
 export const PostDate = tw.h5`mt-2 text-sm text-gray-500 `;
-export const PostDescription = tw.h2`mt-6 text-xl  `;
+export const PostDescription = tw.div`space-x-2 shadow p-3 rounded-lg `;
+export const DescriptionContent = tw.div`flex items-center space-x-3`;
 
-export const RecentCol = tw.div`col-span-3 space-y-2 py-5 mb-5 shadow-lg rounded-lg`;
-export const RecentPost = tw.h2`border-l-4 border-red-600 pl-4 mb-4 text-xl font-bold text-gray-700`;
+export const RecentCol = tw.div`col-span-3 space-y-2 py-5 mb-5 shadow-lg rounded-lg `;
+export const RecentContainer = tw.div`sticky top-24`;
+export const RecentPost = tw.h2`border-l-4 border-red-600 pl-4 mb-4 text-xl font-bold text-gray-700 `;
 export const RecentPostContainer = tw.div`shadow mt-4 cursor-pointer px-3 mx-5 py-1 text-gray-700  hover:bg-red-500 rounded-lg`;
 export const RecentPostTitle = tw.p`text-lg font-medium  hover:text-white`;
 
-export const AllReply = tw.div`flex items-start space-x-3 shadow p-3 rounded-lg`;
-export const AllReplyImg = tw.div`h-20 w-8/12 rounded-full`;
-export const ReplyImg = tw.img`w-full h-full object-cover rounded-full`;
+export const ReplyContainer = tw.div`shadow-lg rounded-lg p-5 m-3 space-y-5 w-10/12`;
+export const AllReply = tw.div`flex items-start  space-x-2 shadow p-3 rounded-lg`;
+export const ReplyImg = tw.img`w-16 h-16 object-cover rounded-full`;
 
 
 

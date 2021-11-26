@@ -10,17 +10,17 @@ export const SidebarData = [
   },
   {
     title: 'Users',
-    path: '/dashboard/user',
+    path: '/user/dashboard',
     icon: <IoIcons.IoMdPeople />,
   },
   {
     title: 'Features',
-    path: '/dashboard/AllFeatureRequest',
+    path: '/AllFeatureRequest/dashboard',
     icon: <AiIcons.AiOutlinePullRequest />,
   },
   {
     title: 'Add admin',
-    path: '/dashboard/AllFeatureRequest',
+    path: '/add-admin/dashboard',
     icon: <AiIcons.AiOutlineUserAdd />,
   },
 ];
