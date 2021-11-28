@@ -83,7 +83,7 @@ const FeatureRequests = () => {
                             </FormFieldset>
 
                         <FormSubmit>
-                            <FormImgUploadLabel for="fileUpload">
+                            <FormImgUploadLabel htmlFor="fileUpload">
                                 <AiOutlineCloudUpload/>
                                     <p>Upload img</p>
                                 </FormImgUploadLabel>

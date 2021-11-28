@@ -1,5 +1,5 @@
-// import firebase from "firebase/compat/app";
-// import "firebase/compat/auth";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
 import React, { useContext, useState } from "react";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from 'react-icons/fc';
@@ -10,113 +10,89 @@ import 'react-toastify/dist/ReactToastify.css';
 import { userContext } from "../../../App.js";
 import loginsvg from '../../../Images/Mobile-login-bro.svg';
 // import { addToDbUser } from "../../User/UserDatabase";
-// import firebaseConfig from "../firebase.config";
+import {firebaseConfig} from "../../../firebase.config";
 import './Signin.css';
-import {SigninContainer, SigninUserRole, SigninUserRoleSelect, SigninCreateAccount, SigninFooter, SigninSocialBtn, SigninForm} from './Signin_CSS.js';
+import {SigninContainer, SigninCreateAccount, SigninFooter, SigninSocialBtn, SigninForm} from './Signin_CSS.js';
 import {FormFieldset, FormLegendTitle, FormInput, FormLegend} from '../../Tab/Feature_Requests/FeatureRequests_CSS.js';
-
+import { getAuth, signInWithPopup, GithubAuthProvider, GoogleAuthProvide } from "firebase/auth";
 
 import { useForm } from 'react-hook-form';
 // import { toast } from 'react-toastify';
 
-// if (!firebase.apps.length) {
-//     firebase.initializeApp(firebaseConfig);
-// } else {
-//     firebase.app();
-// }
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+} else {
+    firebase.app();
+}
 
 
 const Signin = () => {
-
-    const { user, setUser } = useContext(userContext);
-    // const googleProvider = new firebase.auth.GoogleAuthProvider();
-    // const gitProvider = new firebase.auth.GithubAuthProvider();
-
+    const auth = getAuth();
     let history = useHistory();
     let location = useLocation();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     let { from } = location.state || { from: { pathname: "/" } };
+    const { user, setUser } = useContext(userContext);
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    const gitProvider = new firebase.auth.GithubAuthProvider();
 
+
+    const handleUserCreate = (data) => {
+        const userDetail = { 
+            name: data.displayName,
+            email: data.email,
+            password: '10203040',
+            img: data.photoURL
+        }
+        console.log(userDetail)
+        fetch('https://sorting-functionality-authlab.herokuapp.com/user/register-user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userDetail)
+        })
+        .then(res => res.json())
+        .then(user => {
+            onSubmit(userDetail)
+        })
+        .catch(err => {
+            console.log(err)
+        }) 
+    }
 
     // Google sign in
     const handleGoogleLogin = () => {
-        // firebase
-        //     .auth()
-        //     .LoginWithPopup(googleProvider)
-        //     .then((result) => {
-        //         handleAuthToken();
-        //         const googleUser = result.user;
-        //         const { displayName, email, photoURL } = googleUser;
-        //         handleUser(displayName, email, photoURL, true);
-        //         sessionStorage.setItem("user", JSON.stringify(googleUser));
-                // sessionStorage.setItem("name", displayName);
-                // sessionStorage.setItem("photo", photoURL);
-            //     addToDbUser()
-            //     handleAuthToken();
-            // })
-            // .catch((error) => {
-            //     handleErrorMessage(error);
-            // });
+           signInWithPopup(auth, googleProvider)
+             .then((result) => {
+                handleUserCreate(result.user);
+                // setUser(result.user)
+                sessionStorage.setItem("user", JSON.stringify(result.user));
+                history.replace(from);
+            })
+            .catch((error) => {
+                toast.warning(error, {
+                    position: "bottom-right",
+                });
+            });
     };
 
     // Github sign in
     const handleGitLogin = () => {
-        // firebase.auth().LoginWithPopup(gitProvider).then((result) => {
-        //     const gitUser = result.user;
-        //     const { displayName, email, photoURL } = gitUser;
-        //     handleUser(displayName, email, photoURL, true);
-        //     sessionStorage.setItem("user", JSON.stringify(gitUser));
-        //     // sessionStorage.setItem("name", displayName);
-        //     // sessionStorage.setItem("photo", photoURL);
-        //     handleAuthToken();
-        // }).catch((error) => {
-        //     handleErrorMessage(error);
-        // });
+        signInWithPopup(auth, gitProvider)
+        .then((result) => {
+            handleUserCreate(result.user);
+            // setUser(result.user)
+            sessionStorage.setItem("user", JSON.stringify(result.user));
+            history.replace(from);
+        }).catch((error) => {
+            toast.warning(error, {
+                position: "bottom-right",
+            });
+        });
     }
 
-    // handles setting auth token in the session storage
-    const handleAuthToken = () => {
-        // firebase
-        //     .auth()
-        //     .currentUser.getIdToken(true)
-        //     .then(function (idToken) {
-        //         sessionStorage.setItem("token", idToken);
-        //         // setToken(idToken)
-        //         history.replace(from);
-        //     })
-        //     .catch(function (error) {
-        //         handleErrorMessage(error);
-        //     });
-    };
 
-    // handles user info
-    const handleUser = (name, email, photoURL, whetherLoggedIn) => {
-        const newUser = { ...user };
-        if (name !== undefined) {
-            newUser.name = name;
-        }
-        if (email !== undefined) {
-            newUser.email = email;
-        }
-        if (photoURL !== undefined) {
-            newUser.photoURL = photoURL;
-        }
-        if (whetherLoggedIn !== undefined) {
-            newUser.isLoggedIn = true;
-        }
-        setUser(newUser);
-        handleAuthToken();
-    };
-
-    // handles error message
-    const handleErrorMessage = (error) => {
-        const errorMessage = error.message;
-        const newUser = { ...user };
-        newUser.error = errorMessage;
-        setUser(newUser);
-    };
-
-
-    const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
         const loginDetail = { 
             email: data.email,
@@ -167,7 +143,7 @@ const Signin = () => {
                                 <span style={{color:"red"}}>{errors.email?.type === 'required' && "email is required"}</span>
                                 
                                 <FormLegend>Password</FormLegend>
-                                <FormInput name="password" type="text" placeholder="password" {...register("password", {required: true})}/>
+                                <FormInput name="password" type="password" placeholder="password" {...register("password", {required: true})}/>
                                 <span style={{color:"red"}}>{errors.password?.type === 'required' && "password is required"}</span>
                             </div>
                             

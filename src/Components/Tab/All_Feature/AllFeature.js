@@ -12,7 +12,7 @@ const AllFeature = () => {
     const [statusOption, setStatusOption] = useState();
     const { user } = useContext(userContext); 
     let history = useHistory();
-
+    console.log(feature)
     let url ='https://sorting-functionality-authlab.herokuapp.com/features/'
     const features = (id) => {
         

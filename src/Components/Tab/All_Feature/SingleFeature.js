@@ -14,6 +14,8 @@ const SingleFeature = () => {
     
   const { id } = useParams();
   const [post, setPost] = useState([]);
+  console.log(post)
+  const [AllUser, setAllUser] = useState([]);
   const [recentPosts, setRecentPosts] = useState([]);
   const [reply, setReply] = useState(false);
   const [comment, setComment] = useState([]);
@@ -33,6 +35,10 @@ const { register, handleSubmit, formState: { errors }, reset } = useForm();
         fetch(url + `reply/reply-feature/${id}`)
         .then((res) => res.json())
         .then((data) => setComment(data.reply));
+
+        fetch(url + `user/all`)
+        .then((res) => res.json())
+        .then((data) => setAllUser(data.reply));
     }
 
   useEffect(() => {
@@ -128,9 +134,9 @@ const { register, handleSubmit, formState: { errors }, reset } = useForm();
                                 comment && comment.map(comment => {
                                     return <Fragment key={comment._id}>
                                             <AllReply>
-                                                <ReplyImg src={comment.replyUserId.img ? comment.replyUserId.img : imgs} alt={post.name} /> 
+                                                <ReplyImg src={comment.replyUserId ? comment.replyUserId.img : imgs} alt={post.name} /> 
                                                 <div>
-                                                    <strong>{comment.replyUserId.name}</strong> <br/>
+                                                    <strong>{comment.replyUserId && comment.replyUserId.name}</strong> <br/>
                                                     <small>{(new Date(comment.date).toLocaleDateString())}</small>
                                                     <p>{comment.reply}</p>
                                                 </div>

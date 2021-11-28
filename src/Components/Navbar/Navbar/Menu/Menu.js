@@ -15,7 +15,7 @@ const NavbarSection = ({ toggle, closeMobileMenu, isOpen }) => {
     const loggedInUser = sessionStorage.getItem("user");
     if (loggedInUser) {
         const foundUser = JSON.parse(loggedInUser);
-          setUser(foundUser)
+        setUser(foundUser)
       }
     },[]);
 
