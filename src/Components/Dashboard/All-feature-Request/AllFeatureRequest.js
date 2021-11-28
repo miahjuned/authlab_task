@@ -5,10 +5,11 @@ import { ActionButton, ActionContainer, NotFound, Table, TableBodyData, TableBod
 import { SidebarData } from './TableTitle';
 import TableSearch from './TableSearch.js';
 import TableSearchFrom from './TableSearchFrom.js';
-import img from '../../../Images/istockphoto-1277188775-170667a.jpg';
+import img from '../../../Images/noimg.png';
 import UpdatedModal from './Modal/UpdatedModal.js';
 import DeleteModal from './Modal/DeleteModal.js';
 import { DashboardImg, DashboardImgContainer } from '../Global_Dashboard_CSS/Global_Dashboard_CSS.js';
+import PostCommentShowModal from './Modal/PostCommentShowModal.js';
 
 
 const AllFeatureRequest = () => {
@@ -18,8 +19,10 @@ const AllFeatureRequest = () => {
     const [notFound, setNotFound] = useState(false);
     const [deleteId, setDeleteId] = useState(null);
     const [updateId, setUpdateId] = useState(null);
+    const [commentId, setCommentId] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showCommentModal, setShowCommentModal] = useState(false);
 
     const filterData = (e) => {
         if (e.target.value !== "") {
@@ -60,6 +63,7 @@ const AllFeatureRequest = () => {
         setUpdateId(id);
         setShowModal(true);
         setShowDeleteModal(false);
+        setShowCommentModal(false);
     }
 
 
@@ -67,7 +71,15 @@ const AllFeatureRequest = () => {
     const handleDelete = (id) => {
         setDeleteId(id);
         setShowModal(false);
-        setShowDeleteModal(true);
+        setShowDeleteModal(true); 
+        setShowCommentModal(false);
+    }
+    //ShowComment...............................................
+    const handleShowComment = (id) => {
+        setCommentId(id);
+        setShowModal(false);
+        setShowDeleteModal(false);
+        setShowCommentModal(true);
     }
 
 
@@ -94,9 +106,9 @@ const AllFeatureRequest = () => {
                     <tbody>
 
                         {searchValue.length > 0 ?
-                            tableFilter.map((item, index) => <TableSearch item={item} key={index} handleDelete={handleDelete} handleUpdate={handleUpdate}></TableSearch>)
+                            tableFilter.map((item, index) => <TableSearch item={item} key={index} handleShowComment={handleShowComment} handleDelete={handleDelete} handleUpdate={handleUpdate}></TableSearch>)
                             :
-                            feacther.map((item, index) => {
+                            feacther && feacther.map((item, index) => {
                                 return <TableBodyRow item={item} key={index} >
 
                                     <TableBodyData> 
@@ -106,13 +118,21 @@ const AllFeatureRequest = () => {
                                     </TableBodyData>
                                     <TableBodyData> {item.title}</TableBodyData>
                                     <TableBodyData>{item.description.slice(0, 50) + '...'}</TableBodyData>
-                                    <TableBodyData>{item.vote}</TableBodyData>
-                                    <TableBodyData>{item.totalComment}</TableBodyData>
                                     <TableBodyData>{item.status}</TableBodyData>
                                     <TableBodyData>{item.user && item.user.name}</TableBodyData>
                                     <TableBodyData>{(new Date(item.date).toLocaleDateString())}</TableBodyData>
 
-                            
+                                    <TableBodyData>
+                                        <ActionContainer>
+                                            <TableBodyData>{item.totalComment}</TableBodyData>
+                                            <ActionButton
+                                                onClick={() => handleShowComment(item._id)} >
+                                                <AiFillEye />
+                                            </ActionButton>
+                                        </ActionContainer>
+                                    </TableBodyData>
+                                    <TableBodyData>{item.vote}</TableBodyData>
+
                                     <TableBodyData>
                                         <ActionContainer>
                                             <ActionButton
@@ -139,6 +159,9 @@ const AllFeatureRequest = () => {
             }
             {showDeleteModal &&
                 <DeleteModal features={features} deleteId={deleteId} showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal}/>
+            }
+            {showCommentModal && 
+                <PostCommentShowModal features={features} commentId={commentId} showCommentModal={showCommentModal} setShowCommentModal={setShowCommentModal}/>
             }
             <ToastContainer />
         </>

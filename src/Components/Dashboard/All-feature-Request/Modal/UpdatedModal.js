@@ -23,10 +23,10 @@ const UpdatedModal = ({ showModal, setShowModal, updateId, features}) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = (data) => {
       const updatedInfo = { 
-        title: data.Title,
-        description: data.Description,
-        reply: data.Reply,
-        status: StatusOption
+        title: data.Title || feature.title,
+        description: data.Description || feature.description,
+        reply: data.Reply || feature.reply,
+        status: StatusOption || feature.status
       }
       console.log(updatedInfo)
           fetch(url + updateId, {

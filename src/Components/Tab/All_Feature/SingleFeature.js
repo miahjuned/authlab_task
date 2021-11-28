@@ -8,6 +8,7 @@ import { FeatureForm , FormFieldset, FormLegendTitle, FormInputTextarea } from '
 import { userContext } from "../../../App";
 import { toast, ToastContainer } from "react-toastify";
 import { useForm } from 'react-hook-form';
+import { Fragment } from "react";
 
 const SingleFeature = () => {
     
@@ -15,18 +16,24 @@ const SingleFeature = () => {
   const [post, setPost] = useState([]);
   const [recentPosts, setRecentPosts] = useState([]);
   const [reply, setReply] = useState(false);
+  const [comment, setComment] = useState([]);
   const { user } = useContext(userContext); 
-console.log(post.user)
+console.log(user.id)
 const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
+    const url = 'https://sorting-functionality-authlab.herokuapp.com/'
     const features = () => {
-        fetch(`https://sorting-functionality-authlab.herokuapp.com/features/${id}`)
+        fetch(url + `features/${id}`)
         .then((res) => res.json())
         .then((data) => setPost(data.docs));
 
-        fetch(`https://sorting-functionality-authlab.herokuapp.com/features/vote/recent`)
+        fetch(url + 'features/vote/recent')
         .then((res) => res.json())
         .then((data) => setRecentPosts(data.data));
+
+        fetch(url + `reply/reply-feature/${id}`)
+        .then((res) => res.json())
+        .then((data) => setComment(data.reply));
     }
 
   useEffect(() => {
@@ -41,14 +48,15 @@ const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const onSubmitReply = (data) => {
         const replyDetail = { 
             reply: data.descriptions,
-            replyUser: user.name,
-            replyUserImg: user.img,
-            totalComment: post.totalComment + 1 || 1
+            replyUserId: user.id,
+            featureId: id,
+            replyFeatureId: id,
+            totalComment: comment.length + 1 || 1
         }
         console.log(replyDetail)
         if (user.email) {
-            fetch(`https://sorting-functionality-authlab.herokuapp.com/features/${id}`, {
-                method: 'PATCH',
+            fetch(url + 'reply', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -65,6 +73,9 @@ const { register, handleSubmit, formState: { errors }, reset } = useForm();
                     reset();
                     setReply(false)
                 }
+            })
+            .catch(err => {
+                console.log(err)
             })
         } else {
             history.push('/login')
@@ -110,23 +121,30 @@ const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
 
                 </PostDescription>
-                <ReplyContainer>
-
-                    {/****************  All Reply ***********/}
-                    { post.reply && 
+                
+                {/****************  All Reply ***********/}
+                {comment.length > 0  && 
+                     <ReplyContainer>
                         <FormFieldset>
-                            <FormLegendTitle>All Reply</FormLegendTitle>
-                            <AllReply>
-                                <ReplyImg src={post.replyUserImg || imgs} alt={post.name} /> 
-                                <div>
-                                    <strong>{post.replyUser}</strong> <br/>
-                                    <small>{(new Date(post.date).toLocaleDateString())}</small>
-                                    <p>{post.reply}</p>
-                                </div>
-                            </AllReply>
+                            <FormLegendTitle>All Reply</FormLegendTitle> 
+                            {
+                                comment && comment.map(comment => {
+                                    console.log(comment)
+                                    return <Fragment key={comment._id}>
+                                            <AllReply>
+                                                <ReplyImg src={comment.replyUserId.img ? comment.replyUserId.img : imgs} alt={post.name} /> 
+                                                <div>
+                                                    <strong>{comment.replyUserId.name}</strong> <br/>
+                                                    <small>{(new Date(comment.date).toLocaleDateString())}</small>
+                                                    <p>{comment.reply}</p>
+                                                </div>
+                                            </AllReply>
+                                        </Fragment>
+                                    })
+                            }   
                         </FormFieldset>
-                    }
-                </ReplyContainer>
+                    </ReplyContainer>
+                }
             </PostCol>
 
 

@@ -1,6 +1,6 @@
 import tw from "twin.macro";
 
-export const FeatureContainer = tw.div`grid grid-cols-3 gap-4 tracking-tighter`;
+export const FeatureContainer = tw.div`grid grid-cols-1 md:grid-cols-3 gap-4 tracking-tighter`;
 
 // Add Feature Requests Section CSS
 export const FeatureAdd = tw.div`shadow-lg p-5`;

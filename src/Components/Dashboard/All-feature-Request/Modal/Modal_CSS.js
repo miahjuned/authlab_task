@@ -31,7 +31,12 @@ export const ModalFooterSubmitBtn = tw.button`bg-red-600 text-white active:bg-gr
 export const ModalOverlay = tw.div`opacity-25 fixed inset-0 z-40 bg-black`;
 
 // form
-
 export const ModalFormField = tw.div`grid grid-cols-1 md:grid-cols-4 gap-3 py-5`;
+
+// Comment
+export const CommentModalBody = tw.div`relative p-6 flex-auto h-72 overflow-scroll`;
+export const ModalComment = tw.div`grid grid-cols-1 md:grid-cols-6 gap-3 py-5`;
+export const ReplyDesccription = tw.p`col-span-4`;
+export const TotalComment = tw.p`border-l-2 border-red-600 px-3 text-xl font-bold text-gray-600`;
 
 

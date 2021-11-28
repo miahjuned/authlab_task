@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react';
-import { AllFeatureRow,Title, SubTitle, AllFeatureCols, AllFeatureCol, FeatureAddButton, FeatureCommentButton, Status } from './All_Feature_CSS.js';
+import { AllFeatureRow,Title, SubTitle, AllFeatureCols, AllFeatureCol, FeatureAddButton, FeatureCommentButton, Status, PostDate } from './All_Feature_CSS.js';
 import { BiUpArrow, BiComment } from "react-icons/bi";
 import { toast } from 'react-toastify';
 import { userContext } from '../../../App.js';
@@ -12,9 +12,10 @@ const AllFeature = () => {
     const [statusOption, setStatusOption] = useState();
     const { user } = useContext(userContext); 
     let history = useHistory();
+    console.log('feature', feature)
 
     let url ='https://sorting-functionality-authlab.herokuapp.com/features/'
-    const features = () => {
+    const features = (id) => {
         
         if (selectOption === 'select' ) {
                 fetch(url + 'all')
@@ -29,12 +30,11 @@ const AllFeature = () => {
             .then(res => res.json())
             .then(data => setFeature(data.data))
         }
-        
     }
 
     useEffect(() => {
         features()
-    }, [feature])
+    }, [selectOption, statusOption])
 
     const handleVoteUpdated = (id, vote) => {
         if (user.email) {
@@ -51,7 +51,7 @@ const AllFeature = () => {
                     toast.success("successfully done a vote", {
                         position: "bottom-right",
                     });
-                    features()
+                    features(id)
                 }
             })
         } else {
@@ -69,7 +69,7 @@ const AllFeature = () => {
             <AllFeatureRow>
                 
                 {
-                    feature.map((feature, index) =>
+                    feature && feature.map((feature, index) =>
                         <Fragment key={index}>
                             <AllFeatureCol title='add vote' 
                                     onClick={() => handleVoteUpdated(feature._id , feature.vote)
@@ -82,6 +82,7 @@ const AllFeature = () => {
 
                             <AllFeatureCols title='view details' onClick={() => handlePostClick(feature._id)}>
                                 <Title>{feature.title}</Title>
+                                <PostDate>{(new Date(feature.date).toLocaleDateString())}</PostDate>
                                 <Status>{feature.status}</Status>
                                 <SubTitle>{feature.description.slice(0, 100) + '...'}</SubTitle>
                             </AllFeatureCols>

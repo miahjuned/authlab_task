@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import FeatureRequests from './Feature_Requests/FeatureRequests';
+import comingSoonImg from '../../Images/coming-soon-page.jpg';
+import comingSoonImgs from '../../Images/comingsoon2.png';
 import './Tab-css.css'
 import { TabContainer, TabHeader, TabTitle, TabUl, TabLI, TabLink, TabBody, TabBodyContainer, TabBodyContent, } from './Tab-css.js';
 
@@ -109,47 +111,23 @@ const Tabs = () => {
                     <TabBodyContainer>
                         {/* <TabBodyContent> */}
                         <div className={openTab === 1 ? "openTab" : "closeTab"} id="link1">
-                            <p>
-                                Collaboratively administrate empowered markets via
-                                plug-and-play networks. Dynamically procrastinate B2C users
-                                after installed base benefits.
-                                <br />
-                                <br /> Dramatically visualize customer directed convergence
-                                without revolutionary ROI.
-                            </p>
+                            <img src={comingSoonImg} alt='comingSoonImg'/>
                         </div>
+
                         <div className={openTab === 2 ? "openTab" : "closeTab"} id="link2">
                            <FeatureRequests/>
                         </div>
+
                         <div className={openTab === 3 ? "openTab" : "closeTab"} id="link3">
-                            <p>
-                                Efficiently unleash cross-media information without
-                                cross-media value. Quickly maximize timely deliverables for
-                                real-time schemas.
-                                <br />
-                                <br /> Dramatically maintain clicks-and-mortar solutions
-                                without functional solutions.
-                            </p>
+                            <img src={comingSoonImgs} alt='comingSoonImg'/>
                         </div>
+
                         <div className={openTab === 4 ? "openTab" : "closeTab"} id="link4">
-                            <p>
-                                Efficiently unleash cross-media information without
-                                cross-media value. Quickly maximize timely deliverables for
-                                real-time schemas.
-                                <br />
-                                <br /> Dramatically maintain clicks-and-mortar solutions
-                                without functional solutions.
-                            </p>
+                            <img src={comingSoonImg} alt='comingSoonImg'/>
+
                         </div>
                         <div className={openTab === 5 ? "openTab" : "closeTab"} id="link5">
-                            <p>
-                                Efficiently unleash cross-media information without
-                                cross-media value. Quickly maximize timely deliverables for
-                                real-time schemas.
-                                <br />
-                                <br /> Dramatically maintain clicks-and-mortar solutions
-                                without functional solutions.
-                            </p>
+                            <img src={comingSoonImgs} alt='comingSoonImg'/>
                         </div>
                         {/* </TabBodyContent> */}
                     </TabBodyContainer>

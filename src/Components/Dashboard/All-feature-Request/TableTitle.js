@@ -2,10 +2,10 @@ export const SidebarData = [
     {title: 'img'},
     {title: 'Title'},
     {title: 'Description'},
-    {title: 'Vote'},
-    {title: 'Total Comment'},
     {title: 'Status'},
-    {title: 'Vote Creator'},
+    {title: 'features Creator'},
     {title: 'Date'},
+    {title: 'Total Comment'},
+    {title: 'Total Vote'},
     {title: 'Actions'}
 ]
