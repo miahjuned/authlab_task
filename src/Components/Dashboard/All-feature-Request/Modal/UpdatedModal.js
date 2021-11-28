@@ -9,7 +9,6 @@ import { Modal, ModalBody, ModalContainer, ModalContent, ModalFooter, ModalFoote
 const UpdatedModal = ({ showModal, setShowModal, updateId, features}) => {
   const [feature,setFeature] = useState([])
   const [StatusOption ,setStatusOption] = useState()
-  console.log(feature)
   let url ='https://sorting-functionality-authlab.herokuapp.com/features/'
     const singleUser = () => {
         fetch(url + updateId)
@@ -28,7 +27,6 @@ const UpdatedModal = ({ showModal, setShowModal, updateId, features}) => {
         reply: data.Reply || feature.reply,
         status: StatusOption || feature.status
       }
-      console.log(updatedInfo)
           fetch(url + updateId, {
               method: 'PATCH',
               headers: {
@@ -38,7 +36,6 @@ const UpdatedModal = ({ showModal, setShowModal, updateId, features}) => {
           })
           .then(res => res.json())
           .then(data => {
-            console.log(data)
               if(data){                
                   toast.success(data.message, {
                       position: "bottom-right",

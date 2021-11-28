@@ -1,12 +1,11 @@
 import React from 'react';
-import { AiFillCloseCircle, AiFillDelete } from 'react-icons/ai';
+import { AiFillCloseCircle } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router';
 import { Modal, ModalBody, ModalContainer, ModalContent, ModalFooter, ModalFooterCloseBtn,  ModalFooterSubmitBtn,  ModalHeader, ModalHeaderClose, ModalHeaderCloseIcon, ModalHeaderTitle, ModalOverlay } from '../../All-feature-Request/Modal/Modal_CSS';
 
 const UserDeleteModal = ({ showDeleteModal, setShowDeleteModal, deleteId , features}) => {
-    console.log(deleteId)
-    console.log(showDeleteModal)
+
   let url ='https://sorting-functionality-authlab.herokuapp.com/user/'
   let history = useHistory();
   const handleDelete = (e) => {
@@ -19,7 +18,6 @@ const UserDeleteModal = ({ showDeleteModal, setShowDeleteModal, deleteId , featu
         })
         .then(res => res.json())
         .then(data => {
-        console.log(data)
             if(data){                
                 toast.success(data.message, {
                     position: "bottom-right",

@@ -3,7 +3,7 @@ import FeatureRequests from './Feature_Requests/FeatureRequests';
 import comingSoonImg from '../../Images/coming-soon-page.jpg';
 import comingSoonImgs from '../../Images/comingsoon2.png';
 import './Tab-css.css'
-import { TabContainer, TabHeader, TabTitle, TabUl, TabLI, TabLink, TabBody, TabBodyContainer, TabBodyContent, } from './Tab-css.js';
+import { TabContainer, TabHeader, TabTitle, TabUl, TabLI, TabLink, TabBody, TabBodyContainer, } from './Tab-css.js';
 
 const Tabs = () => {
     const [openTab, setOpenTab] = useState(2);

@@ -1,6 +1,5 @@
 
 import { Icon } from '../Menu/MenuItems';
-import { Link } from 'react-router-dom';
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import { SocialMediaLi, SocialMediaUl } from '../../../Style/Style';
 

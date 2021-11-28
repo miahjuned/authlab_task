@@ -68,7 +68,6 @@ const AllFeatureRequest = () => {
         setDeleteId(id);
         setShowDeleteModal(true);
         setShowUserModal(false);
-        console.log(id)
     }
 
 

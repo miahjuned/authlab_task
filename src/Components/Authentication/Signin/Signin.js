@@ -32,7 +32,6 @@ const Signin = () => {
     // const googleProvider = new firebase.auth.GoogleAuthProvider();
     // const gitProvider = new firebase.auth.GithubAuthProvider();
 
-    console.log(user)
     let history = useHistory();
     let location = useLocation();
     let { from } = location.state || { from: { pathname: "/" } };
@@ -133,7 +132,6 @@ const Signin = () => {
         .then(res => res.json())
         .then(user => {
             
-        console.log(user)
             if(user.success === true){                
                 toast.success(user.message, {
                     position: "bottom-right",

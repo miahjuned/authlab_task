@@ -5,8 +5,6 @@ import { useHistory } from 'react-router';
 import { Modal, ModalBody, ModalContainer, ModalContent, ModalFooter, ModalFooterCloseBtn,  ModalFooterSubmitBtn,  ModalHeader, ModalHeaderClose, ModalHeaderCloseIcon, ModalHeaderTitle, ModalOverlay } from '../../All-feature-Request/Modal/Modal_CSS';
 
 const DeleteModal = ({ showDeleteModal, setShowDeleteModal, deleteId , features}) => {
-    console.log(deleteId)
-    console.log(showDeleteModal)
   let url ='https://sorting-functionality-authlab.herokuapp.com/features/'
   let history = useHistory();
   const handleDelete = (e) => {
@@ -19,7 +17,6 @@ const DeleteModal = ({ showDeleteModal, setShowDeleteModal, deleteId , features}
         })
         .then(res => res.json())
         .then(data => {
-        console.log(data)
             if(data){                
                 toast.success(data.message, {
                     position: "bottom-right",

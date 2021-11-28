@@ -18,7 +18,6 @@ const SingleFeature = () => {
   const [reply, setReply] = useState(false);
   const [comment, setComment] = useState([]);
   const { user } = useContext(userContext); 
-console.log(user.id)
 const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
     const url = 'https://sorting-functionality-authlab.herokuapp.com/'
@@ -53,7 +52,6 @@ const { register, handleSubmit, formState: { errors }, reset } = useForm();
             replyFeatureId: id,
             totalComment: comment.length + 1 || 1
         }
-        console.log(replyDetail)
         if (user.email) {
             fetch(url + 'reply', {
                 method: 'POST',
@@ -64,7 +62,6 @@ const { register, handleSubmit, formState: { errors }, reset } = useForm();
             })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 if(data){                
                     toast.success('successfully reply', {
                         position: "bottom-right",
@@ -75,7 +72,7 @@ const { register, handleSubmit, formState: { errors }, reset } = useForm();
                 }
             })
             .catch(err => {
-                console.log(err)
+
             })
         } else {
             history.push('/login')
@@ -129,7 +126,6 @@ const { register, handleSubmit, formState: { errors }, reset } = useForm();
                             <FormLegendTitle>All Reply</FormLegendTitle> 
                             {
                                 comment && comment.map(comment => {
-                                    console.log(comment)
                                     return <Fragment key={comment._id}>
                                             <AllReply>
                                                 <ReplyImg src={comment.replyUserId.img ? comment.replyUserId.img : imgs} alt={post.name} /> 

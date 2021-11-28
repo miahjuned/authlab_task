@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { userContext } from '../../../App';
-import { SidebarContainer, SidebarDiv, Container , SidebarBtn} from './DashboardSIdebar_CSS.js';
+import { SidebarContainer, SidebarDiv, SidebarBtn} from './DashboardSIdebar_CSS.js';
 import SubMenu from './SubMenu';
 import {SidebarData} from './AdminSidebarData';
 
 const AdminSidebar = () => {
   
-  const { user, setUser } = useContext(userContext);
+  const { user } = useContext(userContext);
     return (
       <SidebarContainer>
         <SidebarDiv>

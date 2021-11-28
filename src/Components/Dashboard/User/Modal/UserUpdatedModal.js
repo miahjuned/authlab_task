@@ -27,7 +27,6 @@ const UserUpdatedModal = ({ showUserModal, setShowUserModal, updateId , features
       const updatedInfo = { 
           role: data.Role
       }
-      console.log(updatedInfo)
           fetch(url + updateId, {
               method: 'PATCH',
               headers: {
@@ -37,7 +36,6 @@ const UserUpdatedModal = ({ showUserModal, setShowUserModal, updateId , features
           })
           .then(res => res.json())
           .then(data => {
-            console.log(data)
               if(data){                
                   toast.success(data.message, {
                       position: "bottom-right",
